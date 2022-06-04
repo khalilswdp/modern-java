@@ -2,6 +2,7 @@ package java.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static java.example.Apple.COLOR.GREEN;
 
@@ -25,10 +26,6 @@ public class Example {
             }
         }
         return result;
-    }
-
-    public interface Predicate<T> {
-        boolean test(T t);
     }
 
     static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p) {
