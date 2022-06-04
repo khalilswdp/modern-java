@@ -18,12 +18,8 @@ public class Example {
         for (Transaction transaction : transactions) {
             if (transaction.getPrice() > 1000) {
                 Currency currency = transaction.getCurrency();
-                List<Transaction> transactionsForCurrency = transactionsByCurrencies.get(currency);
+                List<Transaction> transactionsForCurrency = transactionsByCurrencies.computeIfAbsent(currency, k -> new ArrayList<>());
 
-                if (transactionsForCurrency == null) {
-                    transactionsForCurrency = new ArrayList<>();
-                    transactionsByCurrencies.put(currency, transactionsForCurrency);
-                }
                 transactionsForCurrency.add(transaction);
             }
         }
