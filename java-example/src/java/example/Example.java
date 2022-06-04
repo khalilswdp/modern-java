@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class Example {
 
@@ -13,17 +16,9 @@ public class Example {
     }
 
     public  Map<Currency, List<Transaction>> filterLargeTransactionsByCurrency (List<Transaction> transactions){
-        Map<Currency, List<Transaction>> transactionsByCurrencies = new HashMap<>();
 
-        for (Transaction transaction : transactions) {
-            if (transaction.getPrice() > 1000) {
-                Currency currency = transaction.getCurrency();
-                List<Transaction> transactionsForCurrency = transactionsByCurrencies.computeIfAbsent(currency, k -> new ArrayList<>());
-
-                transactionsForCurrency.add(transaction);
-            }
-        }
-
-        return transactionsByCurrencies;
+        return transactions.stream()
+                .filter((Transaction t) -> t.getPrice() > 1000)
+                .collect(groupingBy(Transaction::getCurrency));
     }
 }
