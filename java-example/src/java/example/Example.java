@@ -1,31 +1,33 @@
 package java.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
-
-import static java.example.Apple.COLOR.GREEN;
-import static java.example.Apple.COLOR.RED;
 
 public class Example {
 
-    static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p) {
-        List<Apple> result = new ArrayList<>();
-        for (Apple apple: inventory) {
-            if (p.test(apple)) {
-                result.add(apple);
-            }
-        }
-        return result;
+    public static void main(String[] args) {
+
     }
 
-    public static void main(String[] args) {
-        List<Apple> inventory = new ArrayList<>();
+    public  Map<Currency, List<Transaction>> filterLargeTransactionsByCurrency (List<Transaction> transactions){
+        Map<Currency, List<Transaction>> transactionsByCurrencies = new HashMap<>();
 
-        filterApples(inventory, (Apple a) -> GREEN.equals(a.getColor()));
+        for (Transaction transaction : transactions) {
+            if (transaction.getPrice() > 1000) {
+                Currency currency = transaction.getCurrency();
+                List<Transaction> transactionsForCurrency = transactionsByCurrencies.get(currency);
 
-        filterApples(inventory, (Apple a) -> a.getWeight() > 150);
+                if (transactionsForCurrency == null) {
+                    transactionsForCurrency = new ArrayList<>();
+                    transactionsByCurrencies.put(currency, transactionsForCurrency);
+                }
+                transactionsForCurrency.add(transaction);
+            }
+        }
 
-        filterApples(inventory, (Apple a) -> a.getWeight() < 80 || RED.equals(a.getColor()));
+        return transactionsByCurrencies;
     }
 }
