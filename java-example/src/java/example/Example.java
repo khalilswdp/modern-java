@@ -21,4 +21,18 @@ public class Example {
                 .filter((Transaction t) -> t.getPrice() > 1000)
                 .collect(groupingBy(Transaction::getCurrency));
     }
+
+    public List<Apple> filterHeavyApplesSequential(List<Apple> inventory, int weight) {
+        List<Apple> heavyApples = inventory.stream().filter((Apple a) -> a.getWeight() > weight)
+                .collect(Collectors.toList());
+
+        return heavyApples;
+    }
+
+    public List<Apple> filterHeavyApplesParallel(List<Apple> inventory, int weight) {
+        List<Apple> heavyApples = inventory.parallelStream().filter((Apple a) -> a.getWeight() > weight)
+                .collect(Collectors.toList());
+
+        return heavyApples;
+    }
 }
