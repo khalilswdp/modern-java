@@ -89,7 +89,7 @@ public class Apple {
 
     public static void prettyPrintApple(List<Apple> inventory, AppleFormatter function) {
         for (Apple apple: inventory) {
-            String output = function.apply(apple);
+            String output = function.accept(apple);
             System.out.println(output);
         }
     }

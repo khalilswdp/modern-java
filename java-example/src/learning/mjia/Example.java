@@ -2,10 +2,9 @@ package learning.mjia;
 
 import java.util.*;
 
+import static learning.mjia.Apple.*;
 import static learning.mjia.Apple.COLOR.GREEN;
 import static learning.mjia.Apple.COLOR.RED;
-import static learning.mjia.Apple.filterApples;
-import static learning.mjia.Apple.filterApplesByColor;
 
 public class Example {
 
@@ -18,5 +17,8 @@ public class Example {
         List<Apple> redApples = filterApplesByColor(inventory, RED);
 
         List<Apple> redAndHeavyApples = filterApples(inventory, new AppleRedAndHeavyPredicate());
+
+
+        prettyPrintApple(inventory, new AppleFancyFormatter());
     }
 }
