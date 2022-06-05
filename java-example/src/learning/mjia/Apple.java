@@ -8,16 +8,17 @@ import static learning.mjia.Apple.COLOR.GREEN;
 
 public class Apple {
 
-    private COLOR color;
-    private int weight;
+    private final COLOR color;
+    private final int weight;
 
     enum COLOR {
         RED,
         GREEN
     }
 
-    public Apple(COLOR color) {
+    public Apple(COLOR color, int weight) {
         this.color = color;
+        this.weight = weight;
     }
 
     public COLOR getColor() {
@@ -44,17 +45,15 @@ public class Apple {
     }
 
     public static List<Apple> filterHeavyApplesSequential(List<Apple> inventory, int weight) {
-        List<Apple> heavyApples = inventory.stream().filter((Apple a) -> a.getWeight() > weight)
-                .collect(Collectors.toList());
 
-        return heavyApples;
+        return inventory.stream().filter((Apple a) -> a.getWeight() > weight)
+                .collect(Collectors.toList());
     }
 
     public static List<Apple> filterHeavyApplesParallel(List<Apple> inventory, int weight) {
-        List<Apple> heavyApples = inventory.parallelStream().filter((Apple a) -> a.getWeight() > weight)
-                .collect(Collectors.toList());
 
-        return heavyApples;
+        return inventory.parallelStream().filter((Apple a) -> a.getWeight() > weight)
+                .collect(Collectors.toList());
     }
 
     public static List<Apple> filterApplesByColor(List<Apple> inventory, COLOR color) {
