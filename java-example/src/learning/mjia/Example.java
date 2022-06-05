@@ -1,6 +1,7 @@
 package learning.mjia;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 import static learning.mjia.Apple.*;
 import static learning.mjia.Apple.COLOR.GREEN;
@@ -31,5 +32,21 @@ public class Example {
         });
 
         List<Apple> resultLambda = filterApples(inventory, (Apple apple) -> RED.equals(apple.getColor()));
+
+        List<Apple> redApplesGeneric = filter(inventory, (Apple apple) -> RED.equals(apple.getColor()));
+
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9);
+
+        List<Integer> evenNumbers = filter(numbers, (Integer i) -> i % 2 == 0);
+    }
+
+    public static <T> List <T> filter(List<T> list, Predicate<T> p) {
+        List<T> result = new ArrayList<>();
+        for (T e: list) {
+            if (p.test(e)) {
+                result.add(e);
+            }
+        }
+        return result;
     }
 }
