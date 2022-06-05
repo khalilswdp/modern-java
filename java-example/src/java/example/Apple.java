@@ -1,5 +1,8 @@
 package java.example;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.example.Apple.COLOR.GREEN;
 
 public class Apple {
@@ -27,4 +30,19 @@ public class Apple {
     public static boolean isHeavyApple(Apple apple) {
         return apple.getWeight() > 150;
     }
+
+    public static List<Apple> filterHeavyApplesSequential(List<Apple> inventory, int weight) {
+        List<Apple> heavyApples = inventory.stream().filter((Apple a) -> a.getWeight() > weight)
+                .collect(Collectors.toList());
+
+        return heavyApples;
+    }
+
+    public static List<Apple> filterHeavyApplesParallel(List<Apple> inventory, int weight) {
+        List<Apple> heavyApples = inventory.parallelStream().filter((Apple a) -> a.getWeight() > weight)
+                .collect(Collectors.toList());
+
+        return heavyApples;
+    }
+
 }

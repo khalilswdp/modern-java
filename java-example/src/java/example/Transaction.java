@@ -1,5 +1,10 @@
 package java.example;
 
+import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.groupingBy;
+
 public class Transaction {
 
     private int price;
@@ -20,5 +25,12 @@ public class Transaction {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public Map<Currency, List<Transaction>> filterLargeTransactionsByCurrency (List<Transaction> transactions){
+
+        return transactions.stream()
+                .filter((Transaction t) -> t.getPrice() > 1000)
+                .collect(groupingBy(Transaction::getCurrency));
     }
 }
