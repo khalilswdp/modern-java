@@ -46,10 +46,10 @@ public class Apple {
         return heavyApples;
     }
 
-    public static List<Apple> filterGreenApples(List<Apple> inventory) {
+    public static List<Apple> filterApplesByColor(List<Apple> inventory, COLOR color) {
         List<Apple> result = new ArrayList<>();
         for (Apple apple: inventory) {
-            if (GREEN.equals(apple.getColor())) {
+            if (color.equals(apple.getColor())) {
                 result.add(apple);
             }
         }
