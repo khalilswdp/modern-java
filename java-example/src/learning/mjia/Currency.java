@@ -1,4 +1,4 @@
-package java.example;
+package learning.mjia;
 
 import java.util.Objects;
 

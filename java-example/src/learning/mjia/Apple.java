@@ -1,10 +1,10 @@
-package java.example;
+package learning.mjia;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.example.Apple.COLOR.GREEN;
+import static learning.mjia.Apple.COLOR.GREEN;
 
 public class Apple {
 
@@ -14,6 +14,10 @@ public class Apple {
     enum COLOR {
         RED,
         GREEN
+    }
+
+    public Apple(COLOR color) {
+        this.color = color;
     }
 
     public COLOR getColor() {
