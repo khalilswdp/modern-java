@@ -35,6 +35,10 @@ public class Apple {
         return color.equals(apple.getColor());
     }
 
+    public static boolean isAppleWeightGreaterThan(Apple apple, int weight) {
+        return apple.getWeight() > weight;
+    }
+
     public static boolean isHeavyApple(Apple apple) {
         return apple.getWeight() > 150;
     }
@@ -57,6 +61,16 @@ public class Apple {
         List<Apple> result = new ArrayList<>();
         for (Apple apple: inventory) {
             if (isAppleColor(apple, color)) {
+                result.add(apple);
+            }
+        }
+        return result;
+    }
+
+    public static List<Apple> filterApplesByWeight(List<Apple> inventory, int weight) {
+        List<Apple> result = new ArrayList<>();
+        for (Apple apple: inventory) {
+            if (isAppleWeightGreaterThan(apple, weight)) {
                 result.add(apple);
             }
         }
