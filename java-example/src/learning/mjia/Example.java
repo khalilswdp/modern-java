@@ -30,5 +30,6 @@ public class Example {
             }
         });
 
+        List<Apple> resultLambda = filterApples(inventory, (Apple apple) -> RED.equals(apple.getColor()));
     }
 }
