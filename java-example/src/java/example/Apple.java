@@ -27,6 +27,9 @@ public class Apple {
     public static boolean isGreenApple(Apple apple) {
         return GREEN.equals(apple.getColor());
     }
+    public static boolean isAppleColor(Apple apple, COLOR color) {
+        return color.equals(apple.getColor());
+    }
 
     public static boolean isHeavyApple(Apple apple) {
         return apple.getWeight() > 150;
