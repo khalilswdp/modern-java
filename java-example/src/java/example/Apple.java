@@ -52,7 +52,7 @@ public class Apple {
     public static List<Apple> filterApplesByColor(List<Apple> inventory, COLOR color) {
         List<Apple> result = new ArrayList<>();
         for (Apple apple: inventory) {
-            if (color.equals(apple.getColor())) {
+            if (isAppleColor(apple, color)) {
                 result.add(apple);
             }
         }
