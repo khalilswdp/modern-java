@@ -49,6 +49,18 @@ public class Example {
         inventory.sort((Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight()));
 
         inventory.sort(Comparator.comparing(Apple::getWeight));
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Hello Anonymous Class World!");
+            }
+        });
+
+        t.run();
+
+        Thread t2 = new Thread(() -> System.out.println("Hello Lambda Expression World!"));
+        t2.run();
     }
 
     public static <T> List <T> filter(List<T> list, Predicate<T> p) {
