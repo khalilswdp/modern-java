@@ -1,5 +1,8 @@
 package learning.mjia;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Predicate;
@@ -10,7 +13,7 @@ import static learning.mjia.Apple.COLOR.RED;
 
 public class Example {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
         List<Apple> inventory = new ArrayList<>();
         inventory.add(new Apple(GREEN, 200));
         inventory.add(new Apple(RED, 10));
@@ -91,6 +94,8 @@ public class Example {
         process(r1);
         process(r2);
         process (() -> System.out.println("Hello World 3"));
+
+        System.out.println(processFile());
     }
 
     public static void process(Runnable r) {
@@ -105,5 +110,11 @@ public class Example {
             }
         }
         return result;
+    }
+
+    public static String processFile() throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader("resources/data.txt"))) {
+            return br.readLine();
+        }
     }
 }
