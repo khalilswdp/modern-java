@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static learning.mjia.Apple.*;
@@ -102,6 +104,14 @@ public class Example {
         String result = processFile((BufferedReader br) -> br.readLine() + "\n" + br.readLine() + "\n Some special characters that are specific to this place only");
 
         System.out.println(result);
+
+        forEach(Arrays.asList(1,2,3,4,5),
+                (Integer i) -> System.out.println(i));
+
+        List<Integer> l = map(
+                Arrays.asList("lambdas", "in", "action"),
+                (String s) -> s.length()
+        );
     }
 
     public static void process(Runnable r) {
@@ -128,5 +138,19 @@ public class Example {
         try (BufferedReader br = new BufferedReader(new FileReader("resources/data.txt"))) {
             return pi.read(br);
         }
+    }
+
+    public static <T> void forEach(List<T> list, Consumer<T> c) {
+        for (T t: list) {
+            c.accept(t);
+        }
+    }
+
+    public static <T, R> List <R> map(List<T> list, Function<T, R> f) {
+        List<R> result = new ArrayList<>();
+        for (T t: list) {
+            result.add(f.apply(t));
+        }
+        return result;
     }
 }
