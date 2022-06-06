@@ -95,7 +95,13 @@ public class Example {
         process(r2);
         process (() -> System.out.println("Hello World 3"));
 
+        // Print First Line
         System.out.println(processFile());
+
+        // Print Two lines, Add weird characters, or do whatever, your call
+        String result = processFile((BufferedReader br) -> br.readLine() + "\n" + br.readLine() + "\n Some special characters that are specific to this place only");
+
+        System.out.println(result);
     }
 
     public static void process(Runnable r) {
@@ -115,6 +121,12 @@ public class Example {
     public static String processFile() throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader("resources/data.txt"))) {
             return br.readLine();
+        }
+    }
+
+    private static String processFile(PrintInterface pi) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader("resources/data.txt"))) {
+            return pi.read(br);
         }
     }
 }
