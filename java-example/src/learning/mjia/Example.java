@@ -76,6 +76,9 @@ public class Example {
         Future<String> threadName2 = executorService.submit(() -> Thread.currentThread().getName());
 
         System.out.println("Anonymous Method" + threadName2.get());
+
+        // This is how we can have a variable, honestly wtf! java 8+ is so cool!
+        ApplePredicate specialApplePredicate = (Apple apple) -> apple.getWeight() > 150 && apple.getColor() != RED;
     }
 
     public static <T> List <T> filter(List<T> list, Predicate<T> p) {
