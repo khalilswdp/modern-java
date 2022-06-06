@@ -38,6 +38,17 @@ public class Example {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9);
 
         List<Integer> evenNumbers = filter(numbers, (Integer i) -> i % 2 == 0);
+
+        inventory.sort(new Comparator<Apple>() {
+            @Override
+            public int compare(Apple o1, Apple o2) {
+                return o1.getWeight().compareTo(o2.getWeight());
+            }
+        });
+
+        inventory.sort((Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight()));
+
+        inventory.sort(Comparator.comparing(Apple::getWeight));
     }
 
     public static <T> List <T> filter(List<T> list, Predicate<T> p) {
