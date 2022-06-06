@@ -1,6 +1,7 @@
 package learning.mjia;
 
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.function.Predicate;
 
 import static learning.mjia.Apple.*;
@@ -9,7 +10,7 @@ import static learning.mjia.Apple.COLOR.RED;
 
 public class Example {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         List<Apple> inventory = new ArrayList<>();
         inventory.add(new Apple(GREEN, 200));
         inventory.add(new Apple(RED, 10));
@@ -61,6 +62,20 @@ public class Example {
 
         Thread t2 = new Thread(() -> System.out.println("Hello Lambda Expression World!"));
         t2.run();
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Future<String> threadName = executorService.submit(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                return Thread.currentThread().getName();
+            }
+        });
+
+        System.out.println("Anonymous Class" + threadName.get());
+
+        Future<String> threadName2 = executorService.submit(() -> Thread.currentThread().getName());
+
+        System.out.println("Anonymous Method" + threadName2.get());
     }
 
     public static <T> List <T> filter(List<T> list, Predicate<T> p) {
