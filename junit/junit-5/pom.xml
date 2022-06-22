@@ -41,6 +41,10 @@
                         <version>5.8.2</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <groups>individual</groups>
+                    <excludedGroups>repository</excludedGroups>
+                </configuration>
             </plugin>
         </plugins>
     </build>
