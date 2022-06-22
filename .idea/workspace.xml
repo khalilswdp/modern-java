@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4edf42d9-8aaf-4fbd-b2ca-b4205537e95e" name="Changes" comment="pointless commit">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-example/src/learning/mjia/Example.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/learning/mjia/Example.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +40,7 @@
       <workItem from="1654359213836" duration="108000" />
       <workItem from="1654359337446" duration="138000" />
       <workItem from="1654360729793" duration="172000" />
+      <workItem from="1654795565775" duration="37000" />
     </task>
     <task id="LOCAL-00001" summary="pointless commit">
       <created>1654360805337</created>
