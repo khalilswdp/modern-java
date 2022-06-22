@@ -1,15 +1,26 @@
 package com.khalil.junit;
 
-class SUT {
-    String hello() {
-        return "Hello";
+public class SUT {
+    private String systemName;
+
+    public SUT(String systemName) {
+        this.systemName = systemName;
+        System.out.println(systemName + " from class " + getClass().getSimpleName() + " is initializing.");
     }
 
-    String bye() {
-        return "Bye";
+    public boolean canReceiveRegularWork() {
+        System.out.println(systemName + " from class " + getClass().getSimpleName() + " can receive regular work.");
+        return true;
     }
 
-    String talk() {
-        return "How are you?";
+    public boolean canReceiveAdditionalWork() {
+        System.out.println(systemName + " from class " + getClass().getSimpleName() + " cannot receive additional work.");
+        return false;
     }
+
+    public void close() {
+        System.out.println(systemName + " from class " + getClass().getSimpleName() + " is closing.");
+    }
+
+
 }
