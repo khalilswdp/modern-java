@@ -50,8 +50,8 @@ public class SUT {
     public void run(int jobDuration) throws InterruptedException {
         if (jobs.size() > 0) {
             currentJob = jobs.remove(0);
-            System.out.println("Running job: " + currentJob + " lasts " + jobDuration + " milliseconds");
             Thread.sleep(jobDuration);
+            System.out.println("Running job: " + currentJob + " lasts " + jobDuration + " milliseconds");
             return;
         }
         throw new NoJobException("No jobs on the execution list!");
