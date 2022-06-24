@@ -24,6 +24,7 @@ class TestReporterTest {
         values.put("user", "John");
         values.put("password", "secret");
 
+        // It seems like publishing entries means printing them when doing the test as well as a timestamp
         testReporter.publishEntry(values);
     }
 
