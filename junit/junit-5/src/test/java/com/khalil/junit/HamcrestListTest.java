@@ -30,4 +30,14 @@ public class HamcrestListTest {
         assertEquals(3, values.size());
         assertTrue(values.contains("Oliver") || values.contains("Jack") || values.contains("Harry"));
     }
+
+    @Test
+    @DisplayName("List with Hamcrest will intentionally fail to show how failing information is displayed")
+    public void testListWithHamcrest() {
+        assertThat(values, hasSize(3));
+        assertThat(values, hasItem(anyOf(equalTo("Oliver"), equalTo("Jack"),
+                equalTo("Harry"))));
+        assertThat("The list doesn't contain all the expected objects, in order", values, contains("Oliver", "Jack", "Harry"));
+        assertThat("The list doesn't contain all the expected objects", values, containsInAnyOrder("Jack", "Harry", "Oliver"));
+    }
 }
