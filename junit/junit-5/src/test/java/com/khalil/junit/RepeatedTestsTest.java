@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RepeatedTestsTest {
 
     private static Set<Integer> integerSet = new HashSet<>();
+    // Try to remove static, and you'll realize that each iteration is an entirely unique @Test method!
     private static List<Integer> integerList = new ArrayList<>();
 
     @RepeatedTest(value = 5, name = "{displayName} - repetition {currentRepetition}/{totalRepetitions}")
