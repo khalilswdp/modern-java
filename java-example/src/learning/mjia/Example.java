@@ -229,6 +229,27 @@ public class Example {
                         .map(m -> new Integer[] {n, m}))
                 .peek(arr -> System.out.println("(" + arr[0] + ", " + arr[1] + ")"))
                 .collect(toList());
-    }
 
+        // checks if any of the elements in the list is vegetarian
+        if (menu.stream().anyMatch(Dish::isVegetarian)) {
+            System.out.println("The menu is (somewhat) vegetarian friendly!!");
+        }
+
+        boolean isHealthy = menu.stream().allMatch(d -> d.getCalories() < 1000);
+
+        boolean isHealthy2 = menu.stream().noneMatch(d -> d.getCalories() > 1000);
+
+        Optional<Dish> dish = menu.stream()
+                .filter(Dish::isVegetarian)
+                .findAny();
+
+        dish.ifPresent(d -> System.out.println("Found vegetarian dish: " + d.getName()));
+
+        List<Integer> someNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        Optional<Integer> firstSquareDivisibleByThree = someNumbers.stream()
+                .map(n -> n * n)
+                .filter(n -> n % 3 == 0)
+                .findFirst();
+    }
 }
