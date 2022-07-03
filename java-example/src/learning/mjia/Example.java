@@ -262,5 +262,12 @@ public class Example {
         int product = numbers.stream().reduce(0, (a, b) -> a * b);
 
         Optional<Integer> sum4 = numbers.stream().reduce(Integer::sum);
+
+        Optional<Integer> max = numbers.stream().reduce(Integer::max);
+        Optional<Integer> min = numbers.stream().reduce(Integer::min);
+
+        Optional<Integer> numberOfDishes = menu.stream()
+                .map(i -> 1)
+                .reduce(Integer::sum);
     }
 }
