@@ -8,7 +8,11 @@ import java.util.concurrent.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.toList;
 import static learning.mjia.Apple.*;
 import static learning.mjia.Apple.COLOR.GREEN;
 import static learning.mjia.Apple.COLOR.RED;
@@ -16,141 +20,113 @@ import static learning.mjia.Apple.COLOR.RED;
 public class Example {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
-        List<Apple> inventory = new ArrayList<>();
-        inventory.add(new Apple(GREEN, 200));
-        inventory.add(new Apple(RED, 10));
 
-        List<Apple> greenApples = filterApplesByColor(inventory, GREEN);
-        List<Apple> redApples = filterApplesByColor(inventory, RED);
+        List<Dish> menu = Dish.getDishes();
 
-        List<Apple> redAndHeavyApples = filterApples(inventory, new AppleRedAndHeavyPredicate());
+        List<Dish> lowCaloricDishes = new ArrayList<>();
+        for (Dish dish: menu) {
+            if (dish.getCalories() < 400) {
+                lowCaloricDishes.add(dish);
+            }
+        }
 
-
-        prettyPrintApple(inventory, new AppleFancyFormatter());
-        prettyPrintApple(inventory, new AppleSimpleFormatter());
-
-
-        List<Apple> redApplesAnonymousClass = filterApples(inventory, new ApplePredicate() {
+        Collections.sort(lowCaloricDishes, new Comparator<Dish>() {
             @Override
-            public boolean test(Apple apple) {
-                return RED.equals(apple.getColor());
+            public int compare(Dish o1, Dish o2) {
+                return Integer.compare(o1.getCalories(), o2.getCalories());
             }
         });
 
-        List<Apple> resultLambda = filterApples(inventory, (Apple apple) -> RED.equals(apple.getColor()));
+        List<String> lowCaloricDishNames = new ArrayList<>();
+        for (Dish dish: lowCaloricDishes) {
+            lowCaloricDishNames.add(dish.getName());
+        }
 
-        List<Apple> redApplesGeneric = filter(inventory, (Apple apple) -> RED.equals(apple.getColor()));
+        // Alternatively:
+        List<String> lowCaloricDishNames2 = menu.stream()
+            .filter(d -> d.getCalories() < 400)
+            .sorted(comparingInt(Dish::getCalories))
+            .map(Dish::getName)
+            .collect(toList());
 
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9);
+        // Multicore:
+        List<String> lowCaloricDishNames3 = menu.parallelStream()
+            .filter(d -> d.getCalories() < 400)
+            .sorted(comparingInt(Dish::getCalories))
+            .map(Dish::getName)
+            .collect(toList());
 
-        List<Integer> evenNumbers = filter(numbers, (Integer i) -> i % 2 == 0);
+        Map<Dish.Type, List<Dish>> dishesByType = menu.stream()
+            .collect(Collectors.groupingBy(Dish::getType));
 
-        inventory.sort(new Comparator<Apple>() {
-            @Override
-            public int compare(Apple o1, Apple o2) {
-                return o1.getWeight().compareTo(o2.getWeight());
-            }
+        dishesByType.forEach((type, dishes) -> {
+            System.out.println(type);
+            dishes.forEach(dish -> System.out.println("\t" + dish.getName()));
         });
 
-        inventory.sort((Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight()));
+        List<String> threeHighCaloricDishNames = menu.stream().filter(d -> d.getCalories() > 300)
+            .map(Dish::getName)
+            .limit(3)
+            .collect(toList());
 
-        inventory.sort(Comparator.comparing(Apple::getWeight));
+        System.out.println(threeHighCaloricDishNames);
 
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Hello Anonymous Class World!");
-            }
-        });
+        List<String> title = Arrays.asList("Modern", "Java", "in", "action");
 
-        t.run();
+        Stream<String> s = title.stream();
 
-        Thread t2 = new Thread(() -> System.out.println("Hello Lambda Expression World!"));
-        t2.run();
+        s.forEach(System.out::println);
+        // s.forEach(System.out::println);
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        Future<String> threadName = executorService.submit(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return Thread.currentThread().getName();
-            }
-        });
+        List<String> names = new ArrayList<>();
+        for(Dish dish: menu) {
+            names.add(dish.getName());
+        }
 
-        System.out.println("Anonymous Class" + threadName.get());
+        System.out.println(names);
 
-        Future<String> threadName2 = executorService.submit(() -> Thread.currentThread().getName());
+        // Same using iterators
+        List<String> names2 = new ArrayList<>();
+        Iterator<Dish> iterator = menu.iterator();
+        while (iterator.hasNext()) {
+            Dish dish = iterator.next();
+            names2.add(dish.getName());
+        }
 
-        System.out.println("Anonymous Method" + threadName2.get());
+        // Using streams
+        List<String> names3 = menu.stream()
+            .map(Dish::getName)
+            .collect(toList());
 
-        // This is how we can have a variable, honestly wtf! java 8+ is so cool!
-        ApplePredicate specialApplePredicate = (Apple apple) -> apple.getWeight() > 150 && apple.getColor() != RED;
+        List<String> highCaloricDishes = menu.stream()
+                .filter(d -> d.getCalories() > 300)
+                .map(Dish::getName)
+                .collect(toList());
 
-        Runnable r1 = () -> System.out.println("Hello World 1");
-        Runnable r2 = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Hello World 2");
-            }
-        };
+        List<String> namesExplained = menu.stream()
+                .filter(d -> {
+                    System.out.println("filtering " + d.getName());
+                    return d.getCalories() > 300;
+                })
+                .map(dish -> {
+                    System.out.println("mapping " + dish.getName());
+                    return dish.getName();
+                })
+                .limit(3)
+                .collect(toList());
 
-        process(r1);
-        process(r2);
-        process (() -> System.out.println("Hello World 3"));
-
-        // Print First Line
-        System.out.println(processFile());
-
-        // Print Two lines, Add weird characters, or do whatever, your call
-        String result = processFile((BufferedReader br) -> br.readLine() + "\n" + br.readLine() + "\n Some special characters that are specific to this place only");
-
-        System.out.println(result);
-
-        forEach(Arrays.asList(1,2,3,4,5),
-                (Integer i) -> System.out.println(i));
-
-        List<Integer> l = map(
-                Arrays.asList("lambdas", "in", "action"),
-                (String s) -> s.length()
-        );
-    }
-
-    public static void process(Runnable r) {
-        r.run();
-    }
-
-    public static <T> List <T> filter(List<T> list, Predicate<T> p) {
-        List<T> result = new ArrayList<>();
-        for (T e: list) {
-            if (p.test(e)) {
-                result.add(e);
+        List<Dish> vegetarianDishes = new ArrayList<>();
+        for (Dish d: menu) {
+            if (d.isVegetarian()) {
+                vegetarianDishes.add(d);
             }
         }
-        return result;
+
+        List<Dish> vegetarianDishes2 = menu.stream()
+            .filter(Dish::isVegetarian)
+            .collect(toList());
+
+
     }
 
-    public static String processFile() throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("resources/data.txt"))) {
-            return br.readLine();
-        }
-    }
-
-    private static String processFile(PrintInterface pi) throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("resources/data.txt"))) {
-            return pi.read(br);
-        }
-    }
-
-    public static <T> void forEach(List<T> list, Consumer<T> c) {
-        for (T t: list) {
-            c.accept(t);
-        }
-    }
-
-    public static <T, R> List <R> map(List<T> list, Function<T, R> f) {
-        List<R> result = new ArrayList<>();
-        for (T t: list) {
-            result.add(f.apply(t));
-        }
-        return result;
-    }
 }
