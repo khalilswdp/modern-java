@@ -348,5 +348,14 @@ public class Example {
         transactions.stream()
                 .min(comparingInt(Transaction::getValue));
 
+        int calories = menu.stream()
+                .map(Dish::getCalories)
+                .reduce(0, Integer::sum);
+
+        // By avoiding Integer boxing and unboxing (uses int)
+        int calories2 = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .sum();
+
     }
 }
