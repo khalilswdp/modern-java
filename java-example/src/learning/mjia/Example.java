@@ -189,6 +189,25 @@ public class Example {
         List<Integer> wordLengths = words.stream()
                 .map(String::length)
                 .collect(toList());
+
+        List<String> letters = words.stream()
+                .flatMap(w -> Arrays.stream(w.split("")))
+                .distinct()
+                .collect(toList());
+
+        letters.stream()
+                .forEach(System.out::print);
+
+        String[] wordsArray = {"Java8", "Lambda", "In", "Action"};
+
+        Stream<String> streamOfWords = Arrays.stream(wordsArray);
+
+         List<String> distinctLetters = streamOfWords.map(word -> word.split(""))
+                .flatMap(Arrays::stream)
+                .distinct()
+                .collect(toList());
+
+        System.out.println(distinctLetters);
     }
 
 }
