@@ -13,7 +13,9 @@ import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 import static learning.mjia.Apple.*;
 import static learning.mjia.Apple.COLOR.GREEN;
 import static learning.mjia.Apple.COLOR.RED;
@@ -296,26 +298,34 @@ public class Example {
 
         // Q2.
         List<String> uniqueCities = transactions.stream()
-                .map(transaction -> transaction.getTrader())
-                .map(trader -> trader.getCity())
+                .map(transaction -> transaction.getTrader().getCity())
                 .distinct()
                 .collect(toList());
+
+        Set<String> uniqueCitiesSet = transactions.stream()
+                .map(transaction -> transaction.getTrader().getCity())
+                .collect(toSet());
 
         // Q3.
         List<Trader> tradersFromCambridge = transactions.stream()
                 .map(transaction -> transaction.getTrader())
                 .filter(trader -> trader.getCity().equals("Cambridge"))
+                .distinct()
                 .sorted(comparing(Trader::getName))
                 .collect(toList());
 
         // Q4.
         List<String> tradersNames = transactions.stream()
                 .map(transaction -> transaction.getTrader().getName())
-                .sorted(comparing(String::toString))
+                .distinct()
+                .sorted()
                 .collect(toList());
 
         String tradersNamesAsSingleString = String.valueOf(tradersNames.stream()
                 .reduce(String::concat));
+
+        String tradersNamesAsSingleStringMoreEfficient = String.valueOf(tradersNames.stream()
+                .collect(joining()));
 
         // Q5.
         transactions.stream()
@@ -324,17 +334,19 @@ public class Example {
         // Q6.
         transactions.stream()
                 .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
+                .map(Transaction::getValue)
                 .forEach(System.out::println);
 
         // Q7.
+
+        // Are both correct?
         transactions.stream()
                 .map(transaction -> transaction.getValue())
-                .max(Integer::compare);
+                .reduce(Integer::max);
 
         // Q8.
         transactions.stream()
-                .sorted(comparingInt(Transaction::getValue).reversed())
-                .limit(1);
+                .min(comparingInt(Transaction::getValue));
 
     }
 }
