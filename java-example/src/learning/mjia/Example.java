@@ -180,7 +180,9 @@ public class Example {
                 .limit(2)
                 .collect(toList());
 
-
+        List<String> dishNames = specialMenu.stream()
+                .map(Dish::getName)
+                .collect(toList());
     }
 
 }
