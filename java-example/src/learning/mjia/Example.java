@@ -222,6 +222,13 @@ public class Example {
                         .map(m -> new Integer[] {n, m}))
                 .peek(arr -> System.out.println("(" + arr[0] + ", " + arr[1] + ")"))
                 .collect(toList());
+
+        List<Integer[]> pairs = firstList.stream()
+                .flatMap(n -> secondList.stream()
+                        .filter(m -> (n + m) % 3 == 0)
+                        .map(m -> new Integer[] {n, m}))
+                .peek(arr -> System.out.println("(" + arr[0] + ", " + arr[1] + ")"))
+                .collect(toList());
     }
 
 }
