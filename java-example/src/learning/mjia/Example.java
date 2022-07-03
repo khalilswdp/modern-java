@@ -269,5 +269,8 @@ public class Example {
         Optional<Integer> numberOfDishes = menu.stream()
                 .map(i -> 1)
                 .reduce(Integer::sum);
+
+        long numberOfDishes2 = menu.stream()
+                .count();
     }
 }
