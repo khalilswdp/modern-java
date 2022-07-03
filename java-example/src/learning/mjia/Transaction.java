@@ -2,35 +2,62 @@ package learning.mjia;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.util.stream.Collectors.groupingBy;
 
 public class Transaction {
 
-    private int price;
+    private Trader trader;
+    private int year;
+    private int value;
 
-    private Currency currency;
-
-    public int getPrice() {
-        return price;
+    public Transaction(Trader trader, int year, int value) {
+        this.trader = trader;
+        this.year = year;
+        this.value = value;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public Trader getTrader() {
+        return trader;
     }
 
-    public Currency getCurrency() {
-        return currency;
+    public int getYear() {
+        return year;
     }
 
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
+    public int getValue() {
+        return value;
     }
 
-    public Map<Currency, List<Transaction>> filterLargeTransactionsByCurrency (List<Transaction> transactions){
-
-        return transactions.stream()
-                .filter((Transaction t) -> t.getPrice() > 1000)
-                .collect(groupingBy(Transaction::getCurrency));
+    @Override
+    public int hashCode() {
+        int hash = 17;
+        hash = hash * 31 + (trader == null ? 0 : trader.hashCode());
+        hash = hash * 31 + year;
+        hash = hash * 31 + value;
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Transaction)) {
+            return false;
+        }
+        Transaction o = (Transaction) other;
+        boolean eq = Objects.equals(trader,  o.getTrader());
+        eq = eq && year == o.getYear();
+        eq = eq && value == o.getValue();
+        return eq;
+    }
+
+    @SuppressWarnings("boxing")
+    @Override
+    public String toString() {
+        return String.format("{%s, year: %d, value: %d}", trader, year, value);
+    }
+
 }

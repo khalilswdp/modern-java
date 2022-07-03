@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Comparator.comparing;
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toList;
 import static learning.mjia.Apple.*;
@@ -272,5 +273,68 @@ public class Example {
 
         long numberOfDishes2 = menu.stream()
                 .count();
+
+        Trader raoul = new Trader("Raoul", "Cambridge");
+        Trader mario = new Trader("Mario", "Milan");
+        Trader alan = new Trader("Alan", "Cambridge");
+        Trader brian = new Trader("Brian", "Cambridge");
+
+        List<Transaction> transactions = Arrays.asList(
+                new Transaction(brian, 2011, 300),
+                new Transaction(raoul, 2012, 1000),
+                new Transaction(raoul, 2011, 400),
+                new Transaction(mario, 2012, 710),
+                new Transaction(mario, 2012, 700),
+                new Transaction(alan, 2012, 950)
+        );
+
+        // Q1.
+        List<Transaction> allTransactions2011 = transactions.stream()
+                .filter(transaction -> transaction.getYear() == 2011)
+                .sorted(comparingInt(Transaction::getValue))
+                .collect(toList());
+
+        // Q2.
+        List<String> uniqueCities = transactions.stream()
+                .map(transaction -> transaction.getTrader())
+                .map(trader -> trader.getCity())
+                .distinct()
+                .collect(toList());
+
+        // Q3.
+        List<Trader> tradersFromCambridge = transactions.stream()
+                .map(transaction -> transaction.getTrader())
+                .filter(trader -> trader.getCity().equals("Cambridge"))
+                .sorted(comparing(Trader::getName))
+                .collect(toList());
+
+        // Q4.
+        List<String> tradersNames = transactions.stream()
+                .map(transaction -> transaction.getTrader().getName())
+                .sorted(comparing(String::toString))
+                .collect(toList());
+
+        String tradersNamesAsSingleString = String.valueOf(tradersNames.stream()
+                .reduce(String::concat));
+
+        // Q5.
+        transactions.stream()
+                .anyMatch(transaction -> transaction.getTrader().getCity().equals("Milan"));
+
+        // Q6.
+        transactions.stream()
+                .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
+                .forEach(System.out::println);
+
+        // Q7.
+        transactions.stream()
+                .map(transaction -> transaction.getValue())
+                .max(Integer::compare);
+
+        // Q8.
+        transactions.stream()
+                .sorted(comparingInt(Transaction::getValue).reversed())
+                .limit(1);
+
     }
 }
