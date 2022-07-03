@@ -251,5 +251,13 @@ public class Example {
                 .map(n -> n * n)
                 .filter(n -> n % 3 == 0)
                 .findFirst();
+
+        int sum = 0;
+        for (int x: numbers) {
+            sum += x;
+        }
+
+        int sum2 = numbers.stream().reduce(0, (a, b) -> a + b);
+        int product = numbers.stream().reduce(0, (a, b) -> a * b);
     }
 }
