@@ -258,6 +258,9 @@ public class Example {
         }
 
         int sum2 = numbers.stream().reduce(0, (a, b) -> a + b);
+        int sum3 = numbers.stream().reduce(0, Integer::sum);
         int product = numbers.stream().reduce(0, (a, b) -> a * b);
+
+        Optional<Integer> sum4 = numbers.stream().reduce(Integer::sum);
     }
 }
