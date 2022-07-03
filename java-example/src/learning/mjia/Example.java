@@ -180,8 +180,14 @@ public class Example {
                 .limit(2)
                 .collect(toList());
 
-        List<String> dishNames = specialMenu.stream()
+        List<Integer> dishNames = specialMenu.stream()
                 .map(Dish::getName)
+                .map(String::length)
+                .collect(toList());
+
+        List<String> words = Arrays.asList("Java8", "Lambda", "In", "Action");
+        List<Integer> wordLengths = words.stream()
+                .map(String::length)
                 .collect(toList());
     }
 
