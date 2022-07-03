@@ -208,6 +208,20 @@ public class Example {
                 .collect(toList());
 
         System.out.println(distinctLetters);
+
+        List<Integer> firstTenNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> squares = firstTenNumbers.stream()
+                .map(n -> n * n)
+                .collect(toList());
+
+        List<Integer> firstList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> secondList = Arrays.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+
+        List<Integer[]> couples = firstList.stream()
+                .flatMap(n -> secondList.stream()
+                        .map(m -> new Integer[] {n, m}))
+                .peek(arr -> System.out.println("(" + arr[0] + ", " + arr[1] + ")"))
+                .collect(toList());
     }
 
 }
