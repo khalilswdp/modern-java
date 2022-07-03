@@ -164,6 +164,23 @@ public class Example {
                 .collect(toList());
 
         slicedMenu2.forEach(System.out::println);
+
+        List<Dish> dishes = specialMenu.stream()
+                .filter(d -> d.getCalories() > 300)
+                .limit(3)
+                .collect(toList());
+
+        List<Dish> dishes2 = specialMenu.stream()
+                .filter(d -> d.getCalories() > 300)
+                .skip(3)
+                .collect(toList());
+
+        List<Dish> firstTwoMeatDishes = specialMenu.stream()
+                .filter(d -> d.getType() == Dish.Type.MEAT)
+                .limit(2)
+                .collect(toList());
+
+
     }
 
 }
