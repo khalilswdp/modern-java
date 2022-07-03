@@ -126,7 +126,44 @@ public class Example {
             .filter(Dish::isVegetarian)
             .collect(toList());
 
+        List<Integer> numbers = Arrays.asList(1, 2, 1, 3, 3, 2, 4);
 
+        numbers.stream()
+            .filter(n -> n % 2 == 0)
+            .distinct()
+            .forEach(System.out::println);
+
+        List<Dish> specialMenu = Arrays.asList(
+                new Dish("Seasonal fruit", true, 120, Dish.Type.OTHER),
+                new Dish("Prawn crackers", false, 240, Dish.Type.FISH),
+                new Dish("Salmon fide", false, 300, Dish.Type.FISH),
+                new Dish("Lamb chops", false, 400, Dish.Type.MEAT),
+                new Dish("Peking duck", false, 800, Dish.Type.MEAT),
+                new Dish("Instant Noodle with Egg", true, 150, Dish.Type.OTHER),
+                new Dish("Jiaozi", false, 380, Dish.Type.OTHER),
+                new Dish("Ice-cream", true, 120, Dish.Type.OTHER),
+                new Dish("Coffee", true, 50, Dish.Type.OTHER)
+        );
+
+        List<Dish> filteredMenu = specialMenu.stream()
+                .filter(d -> d.getCalories() < 320)
+                .collect(toList());
+
+        filteredMenu.forEach(System.out::println);
+
+        // keep reading until the condition is satisfied, stop when the condition is not satisfied
+        List<Dish> slicedMenu1 = specialMenu.stream()
+                .takeWhile(d -> d.getCalories() < 400)
+                .collect(toList());
+
+        slicedMenu1.forEach(System.out::println);
+
+        // skip as long as the condition is satisfied, start when the condition is not satisfied
+        List<Dish> slicedMenu2 = specialMenu.stream()
+                .dropWhile(d -> d.getCalories() < 400)
+                .collect(toList());
+
+        slicedMenu2.forEach(System.out::println);
     }
 
 }
