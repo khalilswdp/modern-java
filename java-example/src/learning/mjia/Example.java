@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -433,7 +434,35 @@ public class Example {
                 .map(t -> t[0])
                 .forEach(System.out::println);
 
+        // iterate with a predicate is so much more concise! than filtering (which keeps filterig indefinitely) or using takewhile or dropwhile or whatever the alternative which are more verbose
         IntStream.iterate(0, n -> n < 100, n -> n + 4)
                 .forEach(System.out::println);
+
+        // instead of feeding the output as input over and over again, just use a supplier lambda to provide new values
+        Stream.generate(Math::random)
+                .limit(5)
+                .forEach(System.out::println);
+
+        // A supplier is usually stateless, but we might choose to make it stateful sometimes
+
+        IntStream ones = IntStream.generate(() -> 1);
+
+        // We can make it stateful by using an anonymous class (we can define state via fields) - impossible to do so using lambdas...
+        // Extremely dangerous to depend on state
+        IntSupplier fib = new IntSupplier() {
+            private int previous = 0;
+            private int current = 1;
+
+            @Override
+            public int getAsInt() {
+                int oldPrevious = this.previous;
+                int nextValue = this.previous + this.current;
+                this.previous = this.current;
+                this.current = nextValue;
+                return oldPrevious;
+            }
+        };
+        IntStream.generate(fib).limit(10).forEach(System.out::println);
+
     }
 }
