@@ -12,10 +12,19 @@ public class Transaction {
     private int year;
     private int value;
 
+    private Currency currency;
+
     public Transaction(Trader trader, int year, int value) {
         this.trader = trader;
         this.year = year;
         this.value = value;
+    }
+
+    public Transaction(Trader trader, int year, int value, Currency currency) {
+        this.trader = trader;
+        this.year = year;
+        this.value = value;
+        this.currency = currency;
     }
 
     public Trader getTrader() {
@@ -28,6 +37,14 @@ public class Transaction {
 
     public int getValue() {
         return value;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
     @Override

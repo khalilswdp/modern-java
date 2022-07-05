@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -65,7 +66,7 @@ public class Example {
             .collect(toList());
 
         Map<Dish.Type, List<Dish>> dishesByType = menu.stream()
-            .collect(Collectors.groupingBy(Dish::getType));
+            .collect(groupingBy(Dish::getType));
 
         dishesByType.forEach((type, dishes) -> {
             System.out.println(type);
@@ -287,12 +288,12 @@ public class Example {
         Trader brian = new Trader("Brian", "Cambridge");
 
         List<Transaction> transactions = Arrays.asList(
-                new Transaction(brian, 2011, 300),
-                new Transaction(raoul, 2012, 1000),
-                new Transaction(raoul, 2011, 400),
-                new Transaction(mario, 2012, 710),
-                new Transaction(mario, 2012, 700),
-                new Transaction(alan, 2012, 950)
+                new Transaction(brian, 2011, 300, new Currency("USD")),
+                new Transaction(raoul, 2012, 1000, new Currency("GBP")),
+                new Transaction(raoul, 2011, 400, new Currency("GBP")),
+                new Transaction(mario, 2012, 789, new Currency("EUR")),
+                new Transaction(mario, 2012, 345, new Currency("USD")),
+                new Transaction(alan, 2012, 123, new Currency("USD"))
         );
 
         // Q1.
@@ -463,6 +464,40 @@ public class Example {
             }
         };
         IntStream.generate(fib).limit(10).forEach(System.out::println);
+
+        Map<Currency, List<Transaction>> transactionsByCurrencies = new HashMap<>();
+
+        for (Transaction transaction: transactions) {
+            Currency currency = transaction.getCurrency();
+            List<Transaction> transactionsForCurrency = transactionsByCurrencies.get(currency);
+
+            if (transactionsForCurrency == null) {
+                transactionsForCurrency = new ArrayList<>();
+                transactionsByCurrencies.put(currency, transactionsForCurrency);
+            }
+            transactionsForCurrency.add(transaction);
+        }
+
+        // Or simply:
+        // just check how simple it can become to use a map to group the transactions by currency
+        Map<Currency, List<Transaction>> transactionsByCurrencies2 = transactions.stream()
+                .collect(groupingBy(Transaction::getCurrency));
+
+        System.out.println("First way");
+        for (Currency currency: transactionsByCurrencies.keySet()) {
+            System.out.println("Currency is " + currency.getName());
+            for (Transaction transaction: transactionsByCurrencies.get(currency)) {
+                System.out.println("   " + transaction.toString());
+            }
+        }
+
+        System.out.println("Second way");
+        for (Currency currency: transactionsByCurrencies2.keySet()) {
+            System.out.println("Currency is " + currency.getName());
+            for (Transaction transaction: transactionsByCurrencies2.get(currency)) {
+                System.out.println("   " + transaction.toString());
+            }
+        }
 
     }
 }
