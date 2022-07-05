@@ -374,5 +374,13 @@ public class Example {
                 .filter(n -> n %  2 == 0);
         System.out.println(evenNumbers.count());
 
+        Stream<int[]> pythagoreanTriples = IntStream.rangeClosed(1, 100).boxed()
+                .flatMap(a -> IntStream.rangeClosed(a, 100)
+                        .filter(b -> Math.sqrt(a*a + b*b) % 1 == 0)
+                        .boxed()
+                        .map(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)}));
+
+        pythagoreanTriples.forEach(arr -> System.out.println("(" + arr[0] + ", " + arr[1] + ", " + arr[2] + ")"));
+
     }
 }
