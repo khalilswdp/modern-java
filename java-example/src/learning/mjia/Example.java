@@ -3,6 +3,9 @@ package learning.mjia;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
@@ -393,7 +396,28 @@ public class Example {
         // empty stream
         Stream<String> emptyStream = Stream.empty();
 
+        // Java prior to v9
+        String homeValue = System.getProperty("home");
+        Stream<String> homeValueStream = homeValue == null ? Stream.empty() : Stream.of(homeValue);
 
+        // Java post v9
+        Stream<String> homeValueStream2 = Stream.ofNullable(System.getProperty("home"));
 
+        // How to get multiple values from potential properties
+        Stream<String> values = Stream.of("config", "home", "user")
+                .flatMap(key -> Stream.ofNullable(System.getProperty(key)));
+
+        int[] primeNumbers = {2, 3, 5, 7, 11, 13};
+        int primeSum = Arrays.stream(primeNumbers).sum();
+
+        long uniqueWords = 0;
+        try(Stream<String> lines = Files.lines(Paths.get("resources/data.txt"), Charset.defaultCharset())){
+            uniqueWords = lines.flatMap(line -> Arrays.stream(line.split(" ")))
+                    .distinct()
+                    .count();
+        } catch (IOException e) {
+
+        }
+        System.out.println("Unique Words: " + uniqueWords);
     }
 }
