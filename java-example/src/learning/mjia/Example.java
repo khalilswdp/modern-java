@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
@@ -356,6 +357,22 @@ public class Example {
         int calories2 = menu.stream()
                 .mapToInt(Dish::getCalories)
                 .sum();
+
+        IntStream intStream = menu.stream().
+                mapToInt(Dish::getCalories);
+
+        Stream<Integer> stream = intStream.boxed();
+
+        OptionalInt maxCalories = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .max();
+
+        // or a default
+        int maximumCalories = maxCalories.orElse(1);
+
+        IntStream evenNumbers = IntStream.rangeClosed(1, 100)
+                .filter(n -> n %  2 == 0);
+        System.out.println(evenNumbers.count());
 
     }
 }
