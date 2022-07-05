@@ -387,5 +387,13 @@ public class Example {
                         .mapToObj(b -> new double[]{a, b, Math.sqrt(a*a + b*b)})
                         .filter(t -> t[2] % 1 == 0));
 
+        Stream<String> streamOf = Stream.of("Modern", "Java", "In", "Action");
+        streamOf.map(String::toUpperCase).forEach(System.out::println);
+
+        // empty stream
+        Stream<String> emptyStream = Stream.empty();
+
+
+
     }
 }
