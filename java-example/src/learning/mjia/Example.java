@@ -429,7 +429,7 @@ public class Example {
 
         // Quiz 5.4: Fibonacci tuples series:
         Stream.iterate(new int[] {0, 1}, n -> new int[] {n[1], n[0] + n[1]})
-                .limit(10)
-                .forEach(n -> System.out.println(n[0] + n[1]));
+                .limit(20)
+                .forEach(n -> System.out.println(n[0] + ", " + n[1]));
     }
 }
