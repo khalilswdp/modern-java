@@ -380,7 +380,7 @@ public class Example {
                         .boxed()
                         .map(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)}));
 
-        pythagoreanTriples.forEach(arr -> System.out.println("(" + arr[0] + ", " + arr[1] + ", " + arr[2] + ")"));
+        pythagoreanTriples.limit(5).forEach(arr -> System.out.println("(" + arr[0] + ", " + arr[1] + ", " + arr[2] + ")"));
 
     }
 }
