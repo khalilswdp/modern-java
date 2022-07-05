@@ -419,5 +419,17 @@ public class Example {
 
         }
         System.out.println("Unique Words: " + uniqueWords);
+
+        // The seed is applied (initial value) giving us the next initial value, the output is reapplied, and so on and so forth
+        Stream.iterate(0, n -> n + 2)
+                .limit(10)
+                .forEach(System.out::println);
+
+        // The key difference between a stream and a collection is boundedness, a stream is unbounded and can be infinite
+
+        // Quiz 5.4: Fibonacci tuples series:
+        Stream.iterate(new int[] {0, 1}, n -> new int[] {n[1], n[0] + n[1]})
+                .limit(10)
+                .forEach(n -> System.out.println(n[0] + n[1]));
     }
 }
