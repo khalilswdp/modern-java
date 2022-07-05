@@ -382,5 +382,10 @@ public class Example {
 
         pythagoreanTriples.limit(5).forEach(arr -> System.out.println("(" + arr[0] + ", " + arr[1] + ", " + arr[2] + ")"));
 
+        Stream<double[]> pythagoreanTriples2 = IntStream.rangeClosed(1, 100).boxed()
+                .flatMap(a -> IntStream.rangeClosed(a, 100)
+                        .mapToObj(b -> new double[]{a, b, Math.sqrt(a*a + b*b)})
+                        .filter(t -> t[2] % 1 == 0));
+
     }
 }
