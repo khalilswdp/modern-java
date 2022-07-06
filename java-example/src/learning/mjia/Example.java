@@ -557,10 +557,18 @@ public class Example {
         int totalCalories1 = menu.stream().collect(reducing(0, Dish::getCalories, Integer::sum));
 
         int totalCalories3 = menu.stream().map(Dish::getCalories).reduce(Integer::sum).get();
-        // This last solution is the most preferable
+        // This last solution is the most preferable as it avoids unnecessary conversions from Integer to int and vice versa
         int totalCalories4 = menu.stream().mapToInt(Dish::getCalories).sum();
         // We usually have multiple ways to perform the same operations
 
-        
+        // Quiz 6.1
+        String shortMenu1 = menu.stream().map(Dish::getName)
+                .collect( reducing( (s1, s2) -> s1 + s2 ) ).get();
+        System.out.println(shortMenu1);
+
+        String shortMenu3 = menu.stream()
+                .collect( reducing( "", Dish::getName, (s1, s2) -> s1 + s2 ) );
+        System.out.println(shortMenu3);
+
     }
 }
