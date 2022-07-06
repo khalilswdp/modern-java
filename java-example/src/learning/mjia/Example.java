@@ -16,12 +16,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.util.Comparator.comparing;
-import static java.util.Comparator.comparingInt;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
+import static java.util.Comparator.*;
+import static java.util.stream.Collectors.*;
 import static learning.mjia.Apple.*;
 import static learning.mjia.Apple.COLOR.GREEN;
 import static learning.mjia.Apple.COLOR.RED;
@@ -498,6 +494,49 @@ public class Example {
                 System.out.println("   " + transaction.toString());
             }
         }
+
+        // Both are the same (collectors or direct way)
+        long howManyDishes = menu.stream().collect(counting());
+        long howManyDishes2 = menu.stream().count();
+        System.out.println("The number of dishes in the menu is " + howManyDishes);
+
+        // To get the max for example, we can use a custom comparator with the maxBy collector
+        Comparator<Dish> dishCaloriesComparator = Comparator.comparingInt(Dish::getCalories);
+        Optional<Dish> mostCalorieDish = menu.stream().collect(maxBy(dishCaloriesComparator));
+
+        // To sum, we can also use a collector - alternatively there are also summingLong and summingDouble for the different types
+        int totalCalories = menu.stream().collect(summingInt(Dish::getCalories));
+        // or using the alternative (reducing is the most general form of collector)
+        int totalCalories2 = menu.stream().collect(reducing(0, Dish::getCalories, (i, j) -> i + j));
+//        -- Any of these are also good enough: --
+//         int calories = menu.stream()
+//                        .map(Dish::getCalories)
+//                        .reduce(0, Integer::sum);
+//         -- or --
+//        int calories3 = menu.stream()
+//                .mapToInt(Dish::getCalories)
+//                .sum();
+
+        // For averages: (as usual replace int with long or double for the different types)
+        double avgCalories = menu.stream().collect(averagingInt(Dish::getCalories));
+        System.out.println("Average Calories: " + avgCalories);
+
+        // To get a full summary: - as usual, there are corresponding summarizingLong and Double factory methods for associated types of SummaryStatistics
+        IntSummaryStatistics menuStatistics = menu.stream().collect(summarizingInt(Dish::getCalories));
+        System.out.println("Summary of the menu: " + menuStatistics);
+
+        // Joining Strings
+        String shortMenu = menu.stream().map(Dish::getName).collect(joining());
+        System.out.println(shortMenu);
+
+        // It was said in the book that this could work if Dish had a toString method, it didn't work for me
+        // String shortMenu2 = menu.stream().collect(joining());
+
+        // More beautifully delimited Strings
+        String shortMenu2 = menu.stream().map(Dish::getName).collect(joining(", "));
+        System.out.println(shortMenu2);
+
+        
 
     }
 }
