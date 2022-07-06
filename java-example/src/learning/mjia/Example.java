@@ -536,7 +536,31 @@ public class Example {
         String shortMenu2 = menu.stream().map(Dish::getName).collect(joining(", "));
         System.out.println(shortMenu2);
 
-        
+        Optional<Dish> mostCaloriesDish = menu.stream().collect(reducing(
+                (d1, d2) -> d1.getCalories() > d2.getCalories() ? d1 : d2
+        ));
 
+        // To showcase how we can do .collect(toList()) but instead, using reduce... (immutable reduction, instead of an accumulative reduction like with collect)
+        // As you can see, it can't work in parallel using reduce for fear of data corruption - (the process can't work in parallel due to concurrent modifications)
+        Stream<Integer> stream1 = Arrays.asList(1, 2, 3, 4, 5, 6).stream();
+        List<Integer> numbers1 = stream1.reduce(
+                new ArrayList<Integer>(),
+                (List<Integer> l, Integer e) -> {
+                    l.add(e);
+                    return l; },
+                (List<Integer> l1, List<Integer> l2) -> {
+                    l1.addAll(l2);
+                    return l1;
+                });
+
+        // We can use the reducing method within the collector (all are very good alternatives, the difference is just in the conciseness and readability
+        int totalCalories1 = menu.stream().collect(reducing(0, Dish::getCalories, Integer::sum));
+
+        int totalCalories3 = menu.stream().map(Dish::getCalories).reduce(Integer::sum).get();
+        // This last solution is the most preferable
+        int totalCalories4 = menu.stream().mapToInt(Dish::getCalories).sum();
+        // We usually have multiple ways to perform the same operations
+
+        
     }
 }
