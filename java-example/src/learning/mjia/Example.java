@@ -671,7 +671,44 @@ public class Example {
 
         System.out.println(caloricLevelsByType1);
 
-        // 6.4
+        // If there are at most two groups (characterizable by true and false), we can use partitioning instead of groupBy
+
+        Map<Boolean, List<Dish>> partitionedMenu = menu.stream().collect(partitioningBy(Dish::isVegetarian));
+        System.out.println(partitionedMenu);
+
+        // These two are equivalent (but you now know which one is of better, you don't have to filter the same stream twice)
+        List<Dish> vegetarianDishes1 = partitionedMenu.get(true);
+        List<Dish> vegetarianDishes3 = menu.stream().filter(Dish::isVegetarian).collect(toList());
+
+        Map<Boolean, Map<Dish.Type, List<Dish>>> vegetarianDishesByType = menu.stream()
+                .collect(
+                        partitioningBy(Dish::isVegetarian, groupingBy(Dish::getType)));
+
+        System.out.println(vegetarianDishesByType);
+
+        // we're sure there are atleast vegetarian and non vegetarian dishes.
+        Map<Boolean, Dish> mostCaloricPartitionedByVegetarian = menu.stream()
+                .collect(
+                        partitioningBy(
+                                Dish::isVegetarian,
+                                collectingAndThen(
+                                        maxBy(comparingInt(Dish::getCalories)),
+                                        Optional::get)));
+
+        System.out.println(mostCaloricPartitionedByVegetarian);
+
+        // DishesPartitionedByVegetarianPartitionedByCaloricLevel
+        Map<Boolean, Map<Boolean, List<Dish>>> dishesPartitionedByVegetarianPartitionedByCaloricLevel = menu.stream().collect(partitioningBy(Dish::isVegetarian,
+                partitioningBy(d -> d.getCalories() > 500)));
+        System.out.println(dishesPartitionedByVegetarianPartitionedByCaloricLevel);
+        // DishesPartitionedByVegetarianPartitionedByType (partitioningBy only uses predicates, true or false, in this case, we should've used groupingBy)
+        // XXX empty
+        // NumbersOfDishesPartitionedByVegetarian
+        Map<Boolean, Long> numberOfDishesPartitionedByVegetarian = menu.stream().collect(partitioningBy(Dish::isVegetarian,
+                counting()));
+        System.out.println(numberOfDishesPartitionedByVegetarian);
+
+        // 6.4.2
     }
     // As you can see, this enum is not even part of the Dish class, and we can use it to group dishes
     public enum CaloricLevel { DIET, NORMAL, FAT }
