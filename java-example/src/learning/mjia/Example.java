@@ -708,8 +708,19 @@ public class Example {
                 counting()));
         System.out.println(numberOfDishesPartitionedByVegetarian);
 
-        // 6.4.2
+        // 6.5
     }
     // As you can see, this enum is not even part of the Dish class, and we can use it to group dishes
     public enum CaloricLevel { DIET, NORMAL, FAT }
+
+    public boolean isPrime(int candidate) {
+        int candidateRoot = (int) Math.sqrt((double) candidate);
+        return IntStream.range(2, candidateRoot)
+                .noneMatch(i -> candidate % i == 0);
+    }
+
+    public Map<Boolean, List<Integer>> partitionPrimes(int n) {
+        return IntStream.rangeClosed(2, n).boxed()
+                .collect(partitioningBy(candidate -> isPrime(candidate)));
+    }
 }
