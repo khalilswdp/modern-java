@@ -661,8 +661,17 @@ public class Example {
 
         System.out.println(caloricLevelsByType);
 
+        // We can force what type of set is to be returned in particular (here, we return a hashset)
+        // by passing a constructor reference to it
+        Map<Dish.Type, Set<CaloricLevel>> caloricLevelsByType1 = menu.stream().collect(
+                groupingBy(Dish::getType, mapping(dish -> {
+                    if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+                    else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
+                    else return CaloricLevel.FAT; }, toCollection(HashSet::new) )));
 
-        // 6.3.2
+        System.out.println(caloricLevelsByType1);
+
+        // 6.4
     }
     // As you can see, this enum is not even part of the Dish class, and we can use it to group dishes
     public enum CaloricLevel { DIET, NORMAL, FAT }
