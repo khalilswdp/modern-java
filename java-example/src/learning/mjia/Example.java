@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static java.util.Arrays.asList;
 import static java.util.Comparator.*;
 import static java.util.stream.Collectors.*;
 import static learning.mjia.Apple.*;
@@ -76,7 +77,7 @@ public class Example {
 
         System.out.println(threeHighCaloricDishNames);
 
-        List<String> title = Arrays.asList("Modern", "Java", "in", "action");
+        List<String> title = asList("Modern", "Java", "in", "action");
 
         Stream<String> s = title.stream();
 
@@ -131,14 +132,14 @@ public class Example {
             .filter(Dish::isVegetarian)
             .collect(toList());
 
-        List<Integer> numbers = Arrays.asList(1, 2, 1, 3, 3, 2, 4);
+        List<Integer> numbers = asList(1, 2, 1, 3, 3, 2, 4);
 
         numbers.stream()
             .filter(n -> n % 2 == 0)
             .distinct()
             .forEach(System.out::println);
 
-        List<Dish> specialMenu = Arrays.asList(
+        List<Dish> specialMenu = asList(
                 new Dish("Seasonal fruit", true, 120, Dish.Type.OTHER),
                 new Dish("Prawn crackers", false, 240, Dish.Type.FISH),
                 new Dish("Salmon fide", false, 300, Dish.Type.FISH),
@@ -190,7 +191,7 @@ public class Example {
                 .map(String::length)
                 .collect(toList());
 
-        List<String> words = Arrays.asList("Java8", "Lambda", "In", "Action");
+        List<String> words = asList("Java8", "Lambda", "In", "Action");
         List<Integer> wordLengths = words.stream()
                 .map(String::length)
                 .collect(toList());
@@ -214,13 +215,13 @@ public class Example {
 
         System.out.println(distinctLetters);
 
-        List<Integer> firstTenNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> firstTenNumbers = asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         List<Integer> squares = firstTenNumbers.stream()
                 .map(n -> n * n)
                 .collect(toList());
 
-        List<Integer> firstList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        List<Integer> secondList = Arrays.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+        List<Integer> firstList = asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> secondList = asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
 
         List<Integer[]> couples = firstList.stream()
                 .flatMap(n -> secondList.stream()
@@ -250,7 +251,7 @@ public class Example {
 
         dish1.ifPresent(d -> System.out.println("Found vegetarian dish: " + d.getName()));
 
-        List<Integer> someNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> someNumbers = asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
         Optional<Integer> firstSquareDivisibleByThree = someNumbers.stream()
                 .map(n -> n * n)
@@ -283,7 +284,7 @@ public class Example {
         Trader alan = new Trader("Alan", "Cambridge");
         Trader brian = new Trader("Brian", "Cambridge");
 
-        List<Transaction> transactions = Arrays.asList(
+        List<Transaction> transactions = asList(
                 new Transaction(brian, 2011, 300, new Currency("USD")),
                 new Transaction(raoul, 2012, 1000, new Currency("GBP")),
                 new Transaction(raoul, 2011, 400, new Currency("GBP")),
@@ -542,7 +543,7 @@ public class Example {
 
         // To showcase how we can do .collect(toList()) but instead, using reduce... (immutable reduction, instead of an accumulative reduction like with collect)
         // As you can see, it can't work in parallel using reduce for fear of data corruption - (the process can't work in parallel due to concurrent modifications)
-        Stream<Integer> stream1 = Arrays.asList(1, 2, 3, 4, 5, 6).stream();
+        Stream<Integer> stream1 = asList(1, 2, 3, 4, 5, 6).stream();
         List<Integer> numbers1 = stream1.reduce(
                 new ArrayList<Integer>(),
                 (List<Integer> l, Integer e) -> {
@@ -594,7 +595,42 @@ public class Example {
         Map<Dish.Type, List<String>> dishNamesByType = menu.stream().collect(groupingBy(Dish::getType, mapping(Dish::getName, toList())));
         System.out.println(dishNamesByType);
 
-    }
+        // Each dish has a list of tags linked to it
+        Map<String, List<String>> dishTags = new HashMap<>();
+        dishTags.put("pork", asList("greasy", "salty"));
+        dishTags.put("beef", asList("salty", "roasted"));
+        dishTags.put("chicken", asList("fried", "crisp"));
+        dishTags.put("french fries", asList("greasy", "fried"));
+        dishTags.put("rice", asList("light", "natural"));
+        dishTags.put("season fruit", asList("fresh", "natural"));
+        dishTags.put("pizza", asList("tasty", "salty"));
+        dishTags.put("prawns", asList("tasty", "roasted"));
+        dishTags.put("salmon", asList("delicious", "fresh"));
 
+        // We can now return a key value pair (key is type) and value is the set of tags of any dish of said type
+        // We use flatmap to avoid repetition of tags
+        Map<Dish.Type, Set<String>> dishNamesByType1 = menu.stream()
+                .collect(groupingBy(Dish::getType,
+                        flatMapping(dish -> dishTags.get(dish.getName()).stream(), toSet())));
+        System.out.println(dishNamesByType1);
+
+        // Nested groupings, where we first group by types, and then within each type by CaloricLevel
+        // The collector can be toList, toSet or even another Collertor (grouper)
+        Map<Dish.Type, Map<CaloricLevel, List<Dish>>> dishesByTypeCaloricLevel = menu.stream().collect(
+                groupingBy(Dish::getType,
+                        groupingBy(dish -> {
+                            if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+                            else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
+                            else return CaloricLevel.FAT;
+                        }))
+        );
+
+        System.out.println(dishesByTypeCaloricLevel);
+
+
+
+        // 6.3.2
+    }
+    // As you can see, this enum is not even part of the Dish class, and we can use it to group dishes
     public enum CaloricLevel { DIET, NORMAL, FAT }
 }
