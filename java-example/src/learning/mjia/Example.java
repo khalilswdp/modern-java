@@ -244,11 +244,11 @@ public class Example {
 
         boolean isHealthy2 = menu.stream().noneMatch(d -> d.getCalories() > 1000);
 
-        Optional<Dish> dish = menu.stream()
+        Optional<Dish> dish1 = menu.stream()
                 .filter(Dish::isVegetarian)
                 .findAny();
 
-        dish.ifPresent(d -> System.out.println("Found vegetarian dish: " + d.getName()));
+        dish1.ifPresent(d -> System.out.println("Found vegetarian dish: " + d.getName()));
 
         List<Integer> someNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
@@ -570,5 +570,31 @@ public class Example {
                 .collect( reducing( "", Dish::getName, (s1, s2) -> s1 + s2 ) );
         System.out.println(shortMenu3);
 
+        // a custom made grouping, in case the class doesn't provide a method that helps group the items
+        Map<CaloricLevel, List<Dish>> dishesByCaloricLevel = menu.stream().collect(
+                groupingBy(aDish -> {
+                    if (aDish.getCalories() <= 400) return CaloricLevel.DIET;
+                    else if (aDish.getCalories() <= 700) return CaloricLevel.NORMAL;
+                    else return CaloricLevel.FAT;
+                })
+        );
+
+        System.out.println(dishesByCaloricLevel);
+
+        Map<Dish.Type, List<Dish>> caloricDishesByType = menu.stream().filter(aDish -> aDish.getCalories() > 500)
+                .collect(groupingBy(Dish::getType));
+
+        System.out.println(caloricDishesByType);
+
+        // If you want to have all the groups (even if there are no elements within them due to the filtering), you can use a collect(groupingBy(, filtering(,)))
+        Map<Dish.Type, List<Dish>> caloricDishesByType2 = menu.stream().collect(groupingBy(Dish::getType, filtering(dish -> dish.getCalories() > 500, toList())));
+        System.out.println(caloricDishesByType2);
+
+        // you can also map after grouping by (to get a map of key values, where values are something other than the inputs...
+        Map<Dish.Type, List<String>> dishNamesByType = menu.stream().collect(groupingBy(Dish::getType, mapping(Dish::getName, toList())));
+        System.out.println(dishNamesByType);
+
     }
+
+    public enum CaloricLevel { DIET, NORMAL, FAT }
 }
