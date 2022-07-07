@@ -627,6 +627,39 @@ public class Example {
 
         System.out.println(dishesByTypeCaloricLevel);
 
+        Map<Dish.Type, Long> typesCount = menu.stream().collect(
+                groupingBy(Dish::getType, counting()));
+
+        System.out.println(typesCount);
+
+        // We can get the most caloric dish by type!
+        Map<Dish.Type, Optional<Dish>> mostCaloricByType = menu.stream()
+                .collect(groupingBy(Dish::getType,
+                        maxBy(comparingInt(Dish::getCalories))));
+        System.out.println(mostCaloricByType);
+
+        // We can use collectingAndThen to remove the unuseful Optional (because we're sure there's atleast one element per type, and also because the max in that case returns atleast an element
+        Map<Dish.Type, Dish> mostCaloricByType2 = menu.stream()
+                .collect(groupingBy(Dish::getType,
+                        collectingAndThen(maxBy(comparingInt(Dish::getCalories)), Optional::get)));
+        System.out.println(mostCaloricByType2);
+
+        // Man, this is fascinating, I want to see how all of this is done under the hood!
+
+        // total calories by type (hehe self explanatory)
+        Map<Dish.Type, Integer> totalCaloriesByType = menu.stream()
+                .collect(groupingBy(Dish::getType, summingInt(Dish::getCalories)));
+
+        // A list of caloric levels by dish types
+        // A custom mapping that's impossible otherwise (or extremely hard) or just plain inefficient (imagine mapping them before you even grouped them or filtered them, how would you order them otherwise)
+        Map<Dish.Type, Set<CaloricLevel>> caloricLevelsByType = menu.stream()
+                .collect(groupingBy(Dish::getType, mapping(dish -> {
+                    if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+                    else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
+                    else return CaloricLevel.FAT;
+                }, toSet())));
+
+        System.out.println(caloricLevelsByType);
 
 
         // 6.3.2
