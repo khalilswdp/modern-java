@@ -25,6 +25,9 @@ import static learning.mjia.Apple.COLOR.RED;
 
 public class Example {
 
+    // From Book Modern Java in Action
+    // Review  (High value items): 3.3, 5.8 (files), 6.2 and 6.3
+
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
 
         List<Dish> menu = Dish.getDishes();
@@ -708,6 +711,16 @@ public class Example {
                 counting()));
         System.out.println(numberOfDishesPartitionedByVegetarian);
 
+        // The difference
+        List<Dish> dishes3 = menu.stream().collect(new ToListCollector<Dish>());
+        List<Dish> dishes4 = menu.stream().collect(toList());
+
+        // Hacky way to specify supplier, accumulator and combiner (it's by default and always Identity_finish and concurrent, but not unordered)
+        // Less readable. Better use a default or implement your own custom collector
+        List<Dish> dishes5 = menu.stream()
+                .collect(ArrayList::new,
+                        List::add,
+                        List::addAll);
         // 6.5
     }
     // As you can see, this enum is not even part of the Dish class, and we can use it to group dishes
