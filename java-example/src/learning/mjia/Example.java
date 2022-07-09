@@ -13,17 +13,14 @@ public class Example {
 
     public static void main(String[] args) {
 
+        Map<Boolean, List<Integer>> booleanListMap = partitionPrimesWithCustomCollector(100);
+        System.out.println(booleanListMap);
+
         // 6.6
     }
 
-    public boolean isPrime(int candidate) {
-        int candidateRoot = (int) Math.sqrt((double) candidate);
-        return IntStream.range(2, candidateRoot)
-                .noneMatch(i -> candidate % i == 0);
-    }
-
-    public Map<Boolean, List<Integer>> partitionPrimes(int n) {
+    public static Map<Boolean, List<Integer>> partitionPrimesWithCustomCollector(int n) {
         return IntStream.rangeClosed(2, n).boxed()
-                .collect(partitioningBy(candidate -> isPrime(candidate)));
+                .collect(new PrimeNumbersCollector());
     }
 }
