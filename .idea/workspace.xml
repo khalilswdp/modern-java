@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4edf42d9-8aaf-4fbd-b2ca-b4205537e95e" name="Changes" comment="pointless commit">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-example/java-example.iml" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/java-example.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/learning/mjia/Example.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/learning/mjia/Example.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +29,8 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/khalilsleimi/Documents/learnspace/modern-java/java-example&quot;
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -41,6 +45,8 @@
       <workItem from="1654359337446" duration="138000" />
       <workItem from="1654360729793" duration="172000" />
       <workItem from="1654795565775" duration="37000" />
+      <workItem from="1656687868276" duration="161000" />
+      <workItem from="1657117275658" duration="102000" />
     </task>
     <task id="LOCAL-00001" summary="pointless commit">
       <created>1654360805337</created>
