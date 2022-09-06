@@ -1,4 +1,4 @@
-package com.khalil.junit.assumptions.lifecycle;
+package com.khalil.junit.lifecycle;
 
 public class ResourceForAllTests {
     private String resourceName;

@@ -1,6 +1,6 @@
 package com.khalil.junit.assumptions;
 
-import com.khalil.junit.assumptions.lifecycle.ResourceForAllTests;
+import com.khalil.junit.lifecycle.ResourceForAllTests;
 import org.junit.*;
 
 import static org.junit.Assert.*;
