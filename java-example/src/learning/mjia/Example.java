@@ -1,8 +1,5 @@
 package learning.mjia;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Example {
 
     public static void main(String[] args) {
@@ -11,7 +8,7 @@ public class Example {
     }
 
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        List<Integer> merge = new ArrayList<>(nums1.length + nums2.length);
+        int[] merge = new int[nums1.length + nums2.length];
         int numsCount1 = nums1.length;
         int numsCount2 = nums2.length;
         int i = 0;
@@ -19,30 +16,32 @@ public class Example {
 
         int count = 0;
         while (i < numsCount1 && j < numsCount2) {
-            if (nums2[j] < nums1[i]) {
-                merge.add(nums2[j]);
+            int firstNumber = nums1[i];
+            int secondNumber = nums2[j];
+            if (secondNumber < firstNumber) {
+                merge[count] = secondNumber;
                 j++;
             } else {
-                merge.add(nums1[i]);
+                merge[count] = firstNumber;
                 i++;
             }
             count++;
         }
 
         while (i < numsCount1) {
-            merge.add(nums1[i]);
+            merge[count] = nums1[i];
             i++;
             count++;
         }
 
         while (j < numsCount2) {
-            merge.add(nums2[j]);
+            merge[count] = nums2[j];
             j++;
             count++;
         }
 
 
         // indices are 0 based
-        return count % 2 == 0 ? (merge.get(count / 2 - 1) + merge.get(count / 2)) / 2.0 : merge.get(count / 2);
+        return count % 2 == 0 ? (merge[count / 2 - 1] + merge[count / 2]) / 2.0 : merge[count / 2];
     }
 }
