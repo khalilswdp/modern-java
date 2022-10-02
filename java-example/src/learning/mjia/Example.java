@@ -11,18 +11,13 @@ public class Example {
     }
 
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int[] merge = merge(nums1, nums2);
-        int count = merge.length;
-        double result = count % 2 == 0 ? (merge[count / 2 - 1] + merge[count / 2]) / 2.0 : merge[count / 2];
-        return result;
-    }
-
-    public static int[] merge(int[] nums1, int[] nums2) {
         List<Integer> merge = new ArrayList<>(nums1.length + nums2.length);
         int numsCount1 = nums1.length;
         int numsCount2 = nums2.length;
         int i = 0;
         int j = 0;
+
+        int count = 0;
         while (i < numsCount1 && j < numsCount2) {
             if (nums2[j] < nums1[i]) {
                 merge.add(nums2[j]);
@@ -31,19 +26,23 @@ public class Example {
                 merge.add(nums1[i]);
                 i++;
             }
+            count++;
         }
 
         while (i < numsCount1) {
             merge.add(nums1[i]);
             i++;
+            count++;
         }
 
         while (j < numsCount2) {
             merge.add(nums2[j]);
             j++;
+            count++;
         }
 
 
-        return merge.stream().mapToInt(Integer::intValue).toArray();
+        // indices are 0 based
+        return count % 2 == 0 ? (merge.get(count / 2 - 1) + merge.get(count / 2)) / 2.0 : merge.get(count / 2);
     }
 }
