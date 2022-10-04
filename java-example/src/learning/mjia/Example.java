@@ -13,11 +13,12 @@ public class Example {
 
     public static String longestPalindrome(String s) {
 
-        if (isPalindrome(s)) {
+        int stringLength = s.length();
+
+        if (stringLength < 2) {
             return s;
         }
 
-        int stringLength = s.length();
         int currentMaxLength = 0;
         String maxPalindrome = "";
 
@@ -29,10 +30,8 @@ public class Example {
             while (leftMost >= 0 && rightMost < stringLength && s.charAt(leftMost) == s.charAt(rightMost)) {
                 if (rightMost - leftMost + 1 > currentMaxLength) {
                     String subString = s.substring(leftMost, rightMost + 1);
-                    if (isPalindrome(subString)) {
-                        currentMaxLength = subString.length();
-                        maxPalindrome = subString;
-                    }
+                    currentMaxLength = subString.length();
+                    maxPalindrome = subString;
                 }
                 leftMost--;
                 rightMost++;
@@ -45,10 +44,8 @@ public class Example {
             while (leftMost >= 0 && rightMost < stringLength && s.charAt(leftMost) == s.charAt(rightMost)) {
                 if (rightMost - leftMost + 1 > currentMaxLength) {
                     String subString = s.substring(leftMost, rightMost + 1);
-                    if (isPalindrome(subString)) {
-                        currentMaxLength = subString.length();
-                        maxPalindrome = subString;
-                    }
+                    currentMaxLength = subString.length();
+                    maxPalindrome = subString;
                 }
                 leftMost--;
                 rightMost++;
@@ -56,17 +53,5 @@ public class Example {
         }
 
         return maxPalindrome;
-    }
-
-    private static boolean isPalindrome(String subString) {
-        int subStringLength = subString.length();
-        if (subStringLength == 0 || subStringLength == 1) {
-            return true;
-        }
-        else {
-            boolean startAndEndMatch = subString.charAt(0) == subString.charAt(subStringLength - 1);
-            String substringMinusStartAndEnd = subString.substring(1, subStringLength - 1);
-            return startAndEndMatch && isPalindrome(substringMinusStartAndEnd);
-        }
     }
 }
