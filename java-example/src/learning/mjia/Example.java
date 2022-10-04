@@ -7,6 +7,7 @@ public class Example {
          System.out.println(longestPalindrome("cbbd"));
          System.out.println(longestPalindrome("abb"));
          System.out.println(longestPalindrome("ccd"));
+         System.out.println(longestPalindrome("ccc"));
         // System.out.println(longestPalindrome("abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababa"));
         System.out.println(longestPalindrome("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
     }
@@ -19,34 +20,20 @@ public class Example {
             return s;
         }
 
-        int currentMaxLength = 0;
         String maxPalindrome = "";
 
-        for (int startIndex = 0; startIndex < stringLength; startIndex++) {
-            int leftMost = startIndex;
-            int rightMost = startIndex;
+        boolean[][] palindromes = new boolean[stringLength][stringLength];
 
-            // odd
-            while (leftMost >= 0 && rightMost < stringLength && s.charAt(leftMost) == s.charAt(rightMost)) {
-                if (rightMost - leftMost + 1 > currentMaxLength) {
-                    maxPalindrome = s.substring(leftMost, rightMost + 1);
-                    currentMaxLength = rightMost - leftMost + 1;
+        for (int endingWindow = 0; endingWindow < stringLength; endingWindow++) {
+            for (int startingWindow = 0; startingWindow <= endingWindow; startingWindow++) {
+                int currentLength = endingWindow - startingWindow + 1;
+
+                boolean startAndEndAreSame = s.charAt(startingWindow) == s.charAt(endingWindow);
+                palindromes[startingWindow][endingWindow] = endingWindow - startingWindow < 2 ? startAndEndAreSame : startAndEndAreSame && palindromes[startingWindow + 1][endingWindow - 1];
+
+                if (currentLength > maxPalindrome.length() && palindromes[startingWindow][endingWindow]) {
+                    maxPalindrome = s.substring(startingWindow, endingWindow + 1);
                 }
-                leftMost--;
-                rightMost++;
-            }
-
-            leftMost = startIndex;
-            rightMost = startIndex + 1;
-
-            // even
-            while (leftMost >= 0 && rightMost < stringLength && s.charAt(leftMost) == s.charAt(rightMost)) {
-                if (rightMost - leftMost + 1 > currentMaxLength) {
-                    maxPalindrome = s.substring(leftMost, rightMost + 1);
-                    currentMaxLength = rightMost - leftMost + 1;
-                }
-                leftMost--;
-                rightMost++;
             }
         }
 
