@@ -3,45 +3,70 @@ package learning.mjia;
 public class Example {
 
     public static void main(String[] args) {
-        System.out.println(findMedianSortedArrays(new int[]{1,3}, new int[]{2}));
-        System.out.println(findMedianSortedArrays(new int[]{1,2}, new int[]{3, 4}));
+         System.out.println(longestPalindrome("babad"));
+         System.out.println(longestPalindrome("cbbd"));
+         System.out.println(longestPalindrome("abb"));
+         System.out.println(longestPalindrome("ccd"));
+        // System.out.println(longestPalindrome("abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababa"));
+        System.out.println(longestPalindrome("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
     }
 
-    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int[] merge = new int[nums1.length + nums2.length];
-        int numsCount1 = nums1.length;
-        int numsCount2 = nums2.length;
-        int i = 0;
-        int j = 0;
+    public static String longestPalindrome(String s) {
 
-        int count = 0;
-        while (i < numsCount1 && j < numsCount2) {
-            int firstNumber = nums1[i];
-            int secondNumber = nums2[j];
-            if (secondNumber < firstNumber) {
-                merge[count] = secondNumber;
-                j++;
-            } else {
-                merge[count] = firstNumber;
-                i++;
+        if (isPalindrome(s)) {
+            return s;
+        }
+
+        int stringLength = s.length();
+        int currentMaxLength = 0;
+        String maxPalindrome = "";
+
+        for (int startIndex = 0; startIndex < stringLength; startIndex++) {
+            int leftMost = startIndex;
+            int rightMost = startIndex;
+
+            // odd
+            while (leftMost >= 0 && rightMost < stringLength && s.charAt(leftMost) == s.charAt(rightMost)) {
+                if (rightMost - leftMost + 1 > currentMaxLength) {
+                    String subString = s.substring(leftMost, rightMost + 1);
+                    if (isPalindrome(subString)) {
+                        currentMaxLength = subString.length();
+                        maxPalindrome = subString;
+                    }
+                }
+                leftMost--;
+                rightMost++;
             }
-            count++;
+
+            leftMost = startIndex;
+            rightMost = startIndex + 1;
+
+            // even
+            while (leftMost >= 0 && rightMost < stringLength && s.charAt(leftMost) == s.charAt(rightMost)) {
+                if (rightMost - leftMost + 1 > currentMaxLength) {
+                    String subString = s.substring(leftMost, rightMost + 1);
+                    if (isPalindrome(subString)) {
+                        currentMaxLength = subString.length();
+                        maxPalindrome = subString;
+                    }
+                }
+                leftMost--;
+                rightMost++;
+            }
         }
 
-        while (i < numsCount1) {
-            merge[count] = nums1[i];
-            i++;
-            count++;
+        return maxPalindrome;
+    }
+
+    private static boolean isPalindrome(String subString) {
+        int subStringLength = subString.length();
+        if (subStringLength == 0 || subStringLength == 1) {
+            return true;
         }
-
-        while (j < numsCount2) {
-            merge[count] = nums2[j];
-            j++;
-            count++;
+        else {
+            boolean startAndEndMatch = subString.charAt(0) == subString.charAt(subStringLength - 1);
+            String substringMinusStartAndEnd = subString.substring(1, subStringLength - 1);
+            return startAndEndMatch && isPalindrome(substringMinusStartAndEnd);
         }
-
-
-        // indices are 0 based
-        return count % 2 == 0 ? (merge[count / 2 - 1] + merge[count / 2]) / 2.0 : merge[count / 2];
     }
 }
