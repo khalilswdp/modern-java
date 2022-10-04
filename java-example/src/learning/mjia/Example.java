@@ -3,6 +3,7 @@ package learning.mjia;
 public class Example {
 
     public static void main(String[] args) {
+         System.out.println(longestPalindrome("babaddtattarrattatddetartrateedredividerb"));
          System.out.println(longestPalindrome("babad"));
          System.out.println(longestPalindrome("cbbd"));
          System.out.println(longestPalindrome("abb"));
@@ -12,7 +13,7 @@ public class Example {
     }
 
     static int currentMaxLength;
-    static String maxPalindrome;
+    static int currentMaxStart;
 
     public static String longestPalindrome(String s) {
 
@@ -22,10 +23,10 @@ public class Example {
             return s;
         }
 
-        currentMaxLength = 0;
-        maxPalindrome = "";
+        currentMaxLength = -1;
+        currentMaxStart = 0;
 
-        for (int startIndex = 0; startIndex < stringLength; startIndex++) {
+        for (int startIndex = 0; startIndex < stringLength - 1; startIndex++) {
 
             // odd
             expandPalindrome(s, startIndex, startIndex);
@@ -34,18 +35,19 @@ public class Example {
             expandPalindrome(s, startIndex, startIndex + 1);
         }
 
-        return maxPalindrome;
+        return s.substring(currentMaxStart, currentMaxStart + currentMaxLength);
     }
 
-    private static void expandPalindrome(String s, int leftMost, int rightMost) {
+    private static void expandPalindrome(String s, int begin, int end) {
         int stringLength = s.length();
-        while (leftMost >= 0 && rightMost < stringLength && s.charAt(leftMost) == s.charAt(rightMost)) {
-            if (rightMost - leftMost + 1 > currentMaxLength) {
-                maxPalindrome = s.substring(leftMost, rightMost + 1);
-                currentMaxLength = rightMost - leftMost + 1;
-            }
-            leftMost--;
-            rightMost++;
+
+        while (begin >= 0 && end <= stringLength - 1 && s.charAt(begin) == s.charAt(end)) {
+            begin--;
+            end++;
+        }
+        if (currentMaxLength < end - begin - 1) {
+            currentMaxStart = begin + 1;
+            currentMaxLength = end - begin - 1;
         }
     }
 }
