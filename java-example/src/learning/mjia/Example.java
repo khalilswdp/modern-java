@@ -1,53 +1,49 @@
 package learning.mjia;
 
+import java.util.Arrays;
+
 public class Example {
 
     public static void main(String[] args) {
-         System.out.println(longestPalindrome("babaddtattarrattatddetartrateedredividerb"));
-         System.out.println(longestPalindrome("babad"));
-         System.out.println(longestPalindrome("cbbd"));
-         System.out.println(longestPalindrome("abb"));
-         System.out.println(longestPalindrome("ccd"));
-        // System.out.println(example.longestPalindrome("abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababa"));
-        System.out.println(longestPalindrome("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+        System.out.println(convert("PAYPALISHIRING", 3));
     }
 
-    static int currentMaxLength;
-    static int currentMaxStart;
-
-    public static String longestPalindrome(String s) {
-
+    public static String convert(String s, int numRows) {
         int stringLength = s.length();
 
-        if (stringLength < 2) {
+        if (numRows == 1 || stringLength <= numRows) {
             return s;
         }
 
-        currentMaxLength = -1;
-        currentMaxStart = 0;
 
-        for (int startIndex = 0; startIndex < stringLength - 1; startIndex++) {
+        String[] rows = new String[numRows];
+        Arrays.fill(rows, "");
 
-            // odd
-            expandPalindrome(s, startIndex, startIndex);
-
-            // even
-            expandPalindrome(s, startIndex, startIndex + 1);
+        for (int i = 0; i < stringLength; i++) {
+            for (int j = 0; j < numRows; j++) {
+                if (isStringBelongToThisRow(i, j, numRows)) {
+                    rows[j] += s.charAt(i);
+                }
+            }
         }
 
-        return s.substring(currentMaxStart, currentMaxStart + currentMaxLength);
+        return String.join("", rows);
+
     }
 
-    private static void expandPalindrome(String s, int begin, int end) {
-        int stringLength = s.length();
+    private static boolean isStringBelongToThisRow(int index, int row, int numRows) {
+        if (numRows == 2) return index % 2 == row;
+        else {
+            int zigZagLength = 2 * numRows - 2;
+            int indexInZigZag = index % zigZagLength;
 
-        while (begin >= 0 && end <= stringLength - 1 && s.charAt(begin) == s.charAt(end)) {
-            begin--;
-            end++;
-        }
-        if (currentMaxLength < end - begin - 1) {
-            currentMaxStart = begin + 1;
-            currentMaxLength = end - begin - 1;
+            if (indexInZigZag < numRows) {
+                return indexInZigZag == row;
+            }
+
+            else {
+                return row == (zigZagLength - indexInZigZag);
+            }
         }
     }
 }
