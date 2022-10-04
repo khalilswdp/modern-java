@@ -29,9 +29,8 @@ public class Example {
             // odd
             while (leftMost >= 0 && rightMost < stringLength && s.charAt(leftMost) == s.charAt(rightMost)) {
                 if (rightMost - leftMost + 1 > currentMaxLength) {
-                    String subString = s.substring(leftMost, rightMost + 1);
-                    currentMaxLength = subString.length();
-                    maxPalindrome = subString;
+                    maxPalindrome = s.substring(leftMost, rightMost + 1);
+                    currentMaxLength = rightMost - leftMost + 1;
                 }
                 leftMost--;
                 rightMost++;
@@ -43,9 +42,8 @@ public class Example {
             // even
             while (leftMost >= 0 && rightMost < stringLength && s.charAt(leftMost) == s.charAt(rightMost)) {
                 if (rightMost - leftMost + 1 > currentMaxLength) {
-                    String subString = s.substring(leftMost, rightMost + 1);
-                    currentMaxLength = subString.length();
-                    maxPalindrome = subString;
+                    maxPalindrome = s.substring(leftMost, rightMost + 1);
+                    currentMaxLength = rightMost - leftMost + 1;
                 }
                 leftMost--;
                 rightMost++;
