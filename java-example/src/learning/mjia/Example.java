@@ -1,6 +1,7 @@
 package learning.mjia;
 
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Example {
 
@@ -13,27 +14,27 @@ public class Example {
 
     public static boolean isValid(String s) {
         int stringLength = s.length();
-        if (stringLength < 2 || stringLength % 2 != 0) return false;
+        if (stringLength == 0 || stringLength % 2 != 0) return false;
 
-        Stack<Character> charToPop = new Stack<>();
+        List<Character> charToPop = new ArrayList<>();
         for (int index = 0; index < stringLength; index++) {
             char currentChar = s.charAt(index);
-            if (currentChar == '{') {
-                charToPop.push('}');
-            } else if (currentChar == '('){
-                charToPop.push(')');
-            } else if (currentChar == '[') {
-                charToPop.push(']');
+            int pendingParentsToClose = charToPop.size();
+            if (currentChar == '{' || currentChar == '(' || currentChar == '[') {
+                charToPop.add(currentChar);
+            } else if ((pendingParentsToClose > 0)) {
+                Character lastChar = charToPop.get(pendingParentsToClose - 1);
+                if ((lastChar == '(' && currentChar == ')') || (lastChar == '[' && currentChar == ']') || (lastChar == '{' && currentChar == '}'))
+                {
+                    charToPop.remove(pendingParentsToClose - 1);
+                } else {
+                    return false;
+                }
             } else {
-                if (charToPop.isEmpty()) {
-                    return false;
-                }
-                if (charToPop.pop() != currentChar) {
-                    return false;
-                }
+                return false;
             }
         }
 
-        return charToPop.isEmpty();
+        return charToPop.size() == 0;
     }
 }
