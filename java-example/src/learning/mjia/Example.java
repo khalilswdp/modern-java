@@ -1,32 +1,39 @@
 package learning.mjia;
 
+import java.util.Stack;
+
 public class Example {
 
     public static void main(String[] args) {
-        System.out.println(convert("PAYPALISHIRING", 3));
+        System.out.println(isValid("()"));
+        System.out.println(isValid("){"));
+        System.out.println(isValid("([}}])"));
+        System.out.println(isValid("))"));
     }
 
-    public static String convert(String s, int numRows) {
+    public static boolean isValid(String s) {
         int stringLength = s.length();
+        if (stringLength < 2 || stringLength % 2 != 0) return false;
 
-        if (numRows == 1 || stringLength <= numRows) {
-            return s;
-        }
-
-        int zigZagLength = 2 * (numRows - 1);
-
-
-        StringBuilder allRows = new StringBuilder(stringLength);
-        for (int row = 0; row < numRows; row++) {
-            for (int indexAtZig = row; indexAtZig < stringLength; indexAtZig += zigZagLength) {
-                allRows.append(s.charAt(indexAtZig));
-                int indexAtZag = indexAtZig + zigZagLength - 2 * row;
-                if (!(row == 0 || row == numRows - 1 || indexAtZag >= stringLength)) {
-                    allRows.append(s.charAt(indexAtZag));
+        Stack<Character> charToPop = new Stack<>();
+        for (int index = 0; index < stringLength; index++) {
+            char currentChar = s.charAt(index);
+            if (currentChar == '{') {
+                charToPop.push('}');
+            } else if (currentChar == '('){
+                charToPop.push(')');
+            } else if (currentChar == '[') {
+                charToPop.push(']');
+            } else {
+                if (charToPop.isEmpty()) {
+                    return false;
+                }
+                if (charToPop.pop() != currentChar) {
+                    return false;
                 }
             }
         }
-        return allRows.toString();
 
+        return charToPop.isEmpty();
     }
 }
