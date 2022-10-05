@@ -18,18 +18,19 @@ public class Example {
         String[] rows = new String[numRows];
         Arrays.fill(rows, "");
         int zigZagLength = 2 * (numRows - 1);
-        int numberOfZigZags = (int) Math.ceil(((double) stringLength / zigZagLength));
 
-        for (int zigZagNumber = 0; zigZagNumber < numberOfZigZags; zigZagNumber++) {
-            int zigZagStart = zigZagNumber * zigZagLength;
-            for (int row = 0; row < numRows && zigZagStart + row < stringLength; row++) {
+        // two possible alternatives (I watched 3 videos, and they're all equally inspiring)!
+        // Loop through the rows! and within do some of your magic!
+        // An alternative: just loop through the string and keep track of the row as you go (two approaches: boolean, or not/string builder)
+
+        for (int row = 0; row < numRows; row++) {
+            for (int indexAtZig = row; indexAtZig < stringLength; indexAtZig+= zigZagLength) {
                 char[] currentRowAppend = new char[2];
-                char characterInVerticalRow;
-                int indexAtZig = zigZagStart + row;
-                characterInVerticalRow = s.charAt(indexAtZig);
-                currentRowAppend[0] = characterInVerticalRow;
+                char characterInZig;
+                characterInZig = s.charAt(indexAtZig);
+                currentRowAppend[0] = characterInZig;
                 if (!(row == 0 || row == numRows - 1)) {
-                    int indexAtZag = zigZagStart + zigZagLength - row;
+                    int indexAtZag = indexAtZig + zigZagLength - 2 * row;
                     if (indexAtZag < stringLength) {
                         currentRowAppend[1] = s.charAt(indexAtZag);
                     }
@@ -37,8 +38,6 @@ public class Example {
                 rows[row] += new String(currentRowAppend).trim();
             }
         }
-
-
         return String.join("", rows);
 
     }
