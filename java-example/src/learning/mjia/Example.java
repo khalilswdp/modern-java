@@ -15,35 +15,31 @@ public class Example {
             return s;
         }
 
-
         String[] rows = new String[numRows];
         Arrays.fill(rows, "");
+        int zigZagLength = 2 * (numRows - 1);
+        int numberOfZigZags = (int) Math.ceil(((double) stringLength / zigZagLength));
 
-        for (int i = 0; i < stringLength; i++) {
-            for (int j = 0; j < numRows; j++) {
-                if (isStringBelongToThisRow(i, j, numRows)) {
-                    rows[j] += s.charAt(i);
+        for (int zigZagNumber = 0; zigZagNumber < numberOfZigZags; zigZagNumber++) {
+            int zigZagStart = zigZagNumber * zigZagLength;
+            for (int row = 0; row < numRows && zigZagStart + row < stringLength; row++) {
+                char[] currentRowAppend = new char[2];
+                char characterInVerticalRow;
+                int indexAtZig = zigZagStart + row;
+                characterInVerticalRow = s.charAt(indexAtZig);
+                currentRowAppend[0] = characterInVerticalRow;
+                if (!(row == 0 || row == numRows - 1)) {
+                    int indexAtZag = zigZagStart + zigZagLength - row;
+                    if (indexAtZag < stringLength) {
+                        currentRowAppend[1] = s.charAt(indexAtZag);
+                    }
                 }
+                rows[row] += new String(currentRowAppend).trim();
             }
         }
+
 
         return String.join("", rows);
 
-    }
-
-    private static boolean isStringBelongToThisRow(int index, int row, int numRows) {
-        if (numRows == 2) return index % 2 == row;
-        else {
-            int zigZagLength = 2 * numRows - 2;
-            int indexInZigZag = index % zigZagLength;
-
-            if (indexInZigZag < numRows) {
-                return indexInZigZag == row;
-            }
-
-            else {
-                return row == (zigZagLength - indexInZigZag);
-            }
-        }
     }
 }
