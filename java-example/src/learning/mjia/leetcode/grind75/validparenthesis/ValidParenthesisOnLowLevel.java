@@ -19,14 +19,13 @@ public class ValidParenthesisOnLowLevel {
                 stack[current] = aChar;
                 current++;
             } else if (current > 0) {
-                boolean locallyValid = ((aChar == '}' && stack[current-1] == '{')
-                        || (aChar == ')' && stack[current-1] == '(')
-                        || (aChar == ']' && stack[current-1] == '['));
-                if (locallyValid) {
-                    current--;
-                } else {
+                boolean locallyInvalid = ((aChar == '}' && stack[current-1] != '{')
+                        || (aChar == ')' && stack[current-1] != '(')
+                        || (aChar == ']' && stack[current-1] != '['));
+                if (locallyInvalid) {
                     return false;
                 }
+                current--;
             } else {
                 return false;
             }
