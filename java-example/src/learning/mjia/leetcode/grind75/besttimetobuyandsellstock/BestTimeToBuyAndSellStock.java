@@ -12,9 +12,7 @@ public class BestTimeToBuyAndSellStock {
         while (end < days) {
             if (prices[end] > prices[start]) {
                 int currentProfit = prices[end] - prices[start];
-                if (currentProfit > currentMaxProfit) {
-                    currentMaxProfit = currentProfit;
-                }
+                currentMaxProfit = Math.max(currentProfit, currentMaxProfit);
             } else {
                 start = end;
             }
