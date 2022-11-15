@@ -17,14 +17,12 @@ public class ValidParenthesisOnHighLevel {
         char[] chars = s.toCharArray();
         for (Character c: chars) {
             if (c == '(') {
-                characterQueue.add(')');
+                characterQueue.push(')');
             } else if (c == '{') {
-                characterQueue.add('}');
+                characterQueue.push('}');
             } else if (c == '[') {
-                characterQueue.add(']');
-            } else if (!characterQueue.isEmpty() && c == characterQueue.peek()) {
-                characterQueue.pop();
-            } else {
+                characterQueue.push(']');
+            } else if (characterQueue.isEmpty() || c != characterQueue.pop()) {
                 return false;
             }
         }

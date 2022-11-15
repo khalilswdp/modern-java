@@ -13,11 +13,10 @@ public class ValidParenthesisOnHighLevel2 {
         }
         Stack<Character> characterQueue = new Stack<>();
 
-
         char[] chars = s.toCharArray();
         for (Character c: chars) {
             if (c == '(' || c == '{' || c == '[') {
-                characterQueue.add(c);
+                characterQueue.push(c);
             } else if (!characterQueue.isEmpty() && ((c == ')' && characterQueue.peek() == '(')
                     || (c == ']' && characterQueue.peek() == '[')
                     || (c == '}' && characterQueue.peek() == '{'))) {
