@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75;
+package learning.mjia.leetcode.grind75.twosum;
 
 import java.util.ArrayList;
 import java.util.Collections;

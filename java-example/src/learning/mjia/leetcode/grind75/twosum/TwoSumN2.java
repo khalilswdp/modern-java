@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75;
+package learning.mjia.leetcode.grind75.twosum;
 
 public class TwoSumN2 {
     public int[] twoSum(int[] nums, int target) {
