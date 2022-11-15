@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.mergetwosortedlists;
 
-public class MergeTwoSortedListsIterativeEfficient {
+public class MergeTwoSortedListsIterativeWordy {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         if (list1 == null) {
             return list2;
