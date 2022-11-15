@@ -2,7 +2,7 @@ package learning.mjia.leetcode.grind75.validparenthesis;
 
 import java.util.Stack;
 
-public class ValidParenthesis {
+public class ValidParenthesisOnHighLevel {
 
     public static void main(String[] args) {
         isValid("({[]})");
