@@ -8,9 +8,15 @@ public class BestTimeToBuyAndSellStockIngenius {
     public static int maxProfit(int[] prices) {
         int currentMaxProfit = 0;
         int currentMinPrice = Integer.MAX_VALUE;
-        for (int price: prices) {
-            currentMinPrice = Math.min(currentMinPrice, price);
-            currentMaxProfit = Math.max(currentMaxProfit, price - currentMinPrice);
+        for (int i = 0; i < prices.length; i++) {
+            int price = prices[i];
+            if (price < currentMinPrice) {
+                currentMinPrice = price;
+            }
+            int currentProfit = price - currentMinPrice;
+            if (currentProfit > currentMaxProfit) {
+                currentMaxProfit = currentProfit;
+            }
         }
         return currentMaxProfit;
     }
