@@ -14,11 +14,15 @@ public class ValidPalindromeLowLevelEfficient {
                 cRight = s.charAt(right);
             }
 
-            if (!(cRight == cLeft || cRight == Character.toLowerCase(cLeft) || cLeft == Character.toLowerCase(cRight))) {
+            if (!isAlphaNumericsEqual(cLeft, cRight)) {
                 return false;
             }
         }
         return true;
+    }
+
+    private static boolean isAlphaNumericsEqual(char left, char right) {
+        return right == left || right == Character.toLowerCase(left) || left == Character.toLowerCase(right);
     }
 
     private static boolean isAlphaNumeric(char character) {

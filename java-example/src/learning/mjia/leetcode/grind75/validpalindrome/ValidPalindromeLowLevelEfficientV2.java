@@ -9,7 +9,7 @@ public class ValidPalindromeLowLevelEfficientV2 {
                 left++;
             } else if (!isAlphaNumeric(chars[right])) {
                 right--;
-            } else if (!(chars[right] == chars[left] || chars[right] == Character.toLowerCase(chars[left]) || chars[left] == Character.toLowerCase(chars[right]))) {
+            } else if (!isAlphaNumericsEqual(chars[left], chars[right])) {
                 return false;
             } else {
                 left++;
@@ -17,6 +17,10 @@ public class ValidPalindromeLowLevelEfficientV2 {
             }
         }
         return true;
+    }
+
+    private static boolean isAlphaNumericsEqual(char left, char right) {
+        return right == left || right == Character.toLowerCase(left) || left == Character.toLowerCase(right);
     }
 
     private static boolean isAlphaNumeric(char character) {
