@@ -17,9 +17,7 @@ public class ValidParenthesisOnHighLevel2 {
         for (Character c: chars) {
             if (c == '(' || c == '{' || c == '[') {
                 characterQueue.push(c);
-            } else if (!characterQueue.isEmpty() && ((c == ')' && characterQueue.peek() == '(')
-                    || (c == ']' && characterQueue.peek() == '[')
-                    || (c == '}' && characterQueue.peek() == '{'))) {
+            } else if (isAMatchingClosingParen(characterQueue, c)) {
                 characterQueue.pop();
             } else {
                 return false;
@@ -27,5 +25,11 @@ public class ValidParenthesisOnHighLevel2 {
         }
 
         return characterQueue.isEmpty();
+    }
+
+    private static boolean isAMatchingClosingParen(Stack<Character> characterQueue, Character c) {
+        return !characterQueue.isEmpty() && ((c == ')' && characterQueue.peek() == '(')
+                || (c == ']' && characterQueue.peek() == '[')
+                || (c == '}' && characterQueue.peek() == '{'));
     }
 }
