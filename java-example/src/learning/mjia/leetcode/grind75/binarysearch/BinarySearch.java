@@ -5,7 +5,7 @@ public class BinarySearch {
         int left = 0, right = nums.length -1;
 
         while (left <= right) {
-            int mid = (left + right) / 2;
+            int mid = (left + right) / 2; // left + (right - left) // 2 == left + half-distance // to avoid overflows if asked in interviews
             if (nums[mid] < target) {
                 left = mid + 1;
             } else if (nums[mid] > target) {
