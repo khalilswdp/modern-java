@@ -2,9 +2,8 @@ package learning.mjia.leetcode.grind75.floodfill;
 
 public class FloodFill {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
-        int originalColor = image[sr][sc];
         if (image[sr][sc] != color) {
-            floodFillImage(image, sr, sc, originalColor, color);
+            floodFillImage(image, sr, sc, image[sr][sc], color);
         }
         return image;
     }
@@ -16,11 +15,10 @@ public class FloodFill {
         if (image[sr][sc] == originalColor) {
             image[sr][sc] = color;
 
-            int imageRowLength = image.length, imageColumnLength = image[0].length;
-            if (sr + 1 < imageRowLength) {
+            if (sr + 1 < image.length) {
                 floodFillImage(image, sr + 1, sc, originalColor, color);
             }
-            if (sc + 1 < imageColumnLength) {
+            if (sc + 1 < image[0].length) {
                 floodFillImage(image, sr, sc + 1, originalColor, color);
             }
             if (0 < sr) {
