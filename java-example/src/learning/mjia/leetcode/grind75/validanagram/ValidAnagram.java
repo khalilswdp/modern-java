@@ -29,7 +29,7 @@ public class ValidAnagram {
         Map<Character, Integer> result = new HashMap<>();
         char[] characters = s.toCharArray();
         for (int i = 0; i < characters.length; i++) {
-            result.put(characters[i], result.getOrDefault(characters[i], 0) + 1);
+            result.put(characters[i], 1 + result.getOrDefault(characters[i], 0));
         }
         return result;
     }
