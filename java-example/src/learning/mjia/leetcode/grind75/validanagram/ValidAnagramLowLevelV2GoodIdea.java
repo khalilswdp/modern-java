@@ -1,31 +1,26 @@
 package learning.mjia.leetcode.grind75.validanagram;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
-public class ValidAnagramLowLevel {
+public class ValidAnagramLowLevelV2GoodIdea {
     public static void main(String[] args) {
         System.out.println(isAnagram("anagram", "nagaram"));
     }
     public static boolean isAnagram(String s, String t) {
+        // This is much slower, because we're sorting :p
         int sLength = s.length();
-        if (sLength != t.length()) {
+        int tLength = t.length();
+        if (sLength != tLength) {
             return false;
         }
 
-        int end = 'a' + 26;
-        int[] characters = new int[end]; // to be changed to fit all unicode characters
-
         char[] sChars = s.toCharArray();
         char[] tChars = t.toCharArray();
+        Arrays.sort(sChars);
+        Arrays.sort(tChars);
 
         for (int i = 0; i < sLength; i++) {
-            characters[sChars[i]]++;
-            characters[tChars[i]]--;
-        }
-
-        for (int i = 'a'; i < end; i++) {
-            if (characters[i] != 0) {
+            if (sChars[i] != tChars[i]) {
                 return false;
             }
         }
