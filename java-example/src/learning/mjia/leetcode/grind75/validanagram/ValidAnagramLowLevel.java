@@ -13,17 +13,18 @@ public class ValidAnagramLowLevel {
             return false;
         }
 
-        int[] characters = new int[26]; // to be changed to fit all unicode characters
+        int end = 'a' + 26;
+        int[] characters = new int[end]; // to be changed to fit all unicode characters
 
         char[] sChars = s.toCharArray();
         char[] tChars = t.toCharArray();
 
         for (int i = 0; i < sLength; i++) {
-            characters[sChars[i] - 'a']++;
-            characters[tChars[i] - 'a']--;
+            characters[sChars[i]]++;
+            characters[tChars[i]]--;
         }
 
-        for (int i = 0; i < 26; i++) {
+        for (int i = 'a'; i < end; i++) {
             if (characters[i] != 0) {
                 return false;
             }
