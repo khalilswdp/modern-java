@@ -5,6 +5,7 @@ public class MaximumSubarrayDivideAndConquerV2OnLessMemoryLessReadable {
         maxSubArray(new int[]{8,-19,5,-4,20});
     }
     public static int maxSubArray(int[] nums) {
+        // This can be implemented from the bottom up?
         return findMaximumSubarrayByComparingMSDs(nums, 0, nums.length - 1)[1];
     }
 
