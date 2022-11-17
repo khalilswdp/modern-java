@@ -34,14 +34,12 @@ public class MaximumSubarrayDivideAndConquerOnLogn {
 
         sum = 0;
         int currentRightSum = Integer.MIN_VALUE;
-        for (int i = mid; i <= end; i++) {
+        for (int i = mid + 1; i <= end; i++) {
             sum += nums[i];
             currentRightSum = Math.max(currentRightSum, sum);
         }
 
-        // We are sure that it is indeed "currentRightSum + currentLeftSum - nums[mid]" because we start from the mid
-        // and count the sums outwards
-        return Math.max(currentRightSum + currentLeftSum - nums[mid],
+        return Math.max(currentRightSum + currentLeftSum,
                 Math.max(currentLeftSum, currentRightSum));
     }
 }
