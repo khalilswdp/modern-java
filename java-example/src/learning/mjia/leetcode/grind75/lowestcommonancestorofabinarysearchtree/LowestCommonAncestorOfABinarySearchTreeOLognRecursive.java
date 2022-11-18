@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.lowestcommonancestorofabinarysearchtree;
 
-public class LowestCommonAncestorOfABinarySearchTree {
+public class LowestCommonAncestorOfABinarySearchTreeOLognRecursive {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (p.val == q.val) {
             return p;
