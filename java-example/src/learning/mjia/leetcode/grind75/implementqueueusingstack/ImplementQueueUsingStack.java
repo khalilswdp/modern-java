@@ -19,22 +19,20 @@ public class ImplementQueueUsingStack {
     }
 
     public int pop() {
-        if (outputStack.isEmpty()) {
-            balanceIfNecessary();
-        }
+        balanceIfNecessary();
         return outputStack.pop();
     }
 
     private void balanceIfNecessary() {
-        while (!inputStack.isEmpty()) {
-            outputStack.push(inputStack.pop());
+        if (outputStack.isEmpty()) {
+            while (!inputStack.isEmpty()) {
+                outputStack.push(inputStack.pop());
+            }
         }
     }
 
     public int peek() {
-        if (outputStack.isEmpty()) {
-            balanceIfNecessary();
-        }
+        balanceIfNecessary();
         return outputStack.peek();
     }
 
