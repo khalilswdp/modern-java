@@ -9,6 +9,8 @@ public class FirstBadSolution  extends VersionControl {
             if (isBadVersion(mid)) {
                 right = mid;
             } else {
+                // mid is not bad, that's why you need to look after it.
+                // this is why +1 is unique here, and we can't use -1 in the previous
                 left = mid + 1;
             }
         }
