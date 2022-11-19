@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.maximumsubarray;
 
-public class MaximumSubarrayDivideAndConquerOnLogn {
+public class MaximumSubarrayDivideAndConquerOLognX {
     public static void main(String[] args) {
         maxSubArray(new int[]{8,-19,5,-4,20});
     }

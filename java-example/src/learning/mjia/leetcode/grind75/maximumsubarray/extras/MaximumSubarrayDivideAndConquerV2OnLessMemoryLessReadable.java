@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75.maximumsubarray;
+package learning.mjia.leetcode.grind75.maximumsubarray.extras;
 
 public class MaximumSubarrayDivideAndConquerV2OnLessMemoryLessReadable {
     public static void main(String[] args) {
