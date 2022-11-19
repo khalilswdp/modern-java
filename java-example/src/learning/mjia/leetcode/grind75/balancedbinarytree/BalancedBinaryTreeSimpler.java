@@ -11,8 +11,6 @@ public class BalancedBinaryTreeSimpler {
     private static int height(TreeNode root) {
         if (root == null) {
             return 0;
-        } else if (root.right == null && root.left == null) {
-            return 1;
         } else {
             int heightRight = height(root.right);
             int heightLeft = height(root.left);
