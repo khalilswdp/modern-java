@@ -15,12 +15,14 @@ public class ImplementQueueUsingStackV2 {
     }
 
     public void push(int x) {
-        while (!outputStack.isEmpty()) {
-            temporaryStack.push((outputStack.pop()));
-        }
+        moveFirstStackToSecond(outputStack, temporaryStack);
         outputStack.push(x);
-        while (!temporaryStack.isEmpty()) {
-            outputStack.push(temporaryStack.pop());
+        moveFirstStackToSecond(temporaryStack, outputStack);
+    }
+
+    private void moveFirstStackToSecond(Deque<Integer> outputStack, Deque<Integer> temporaryStack) {
+        while (!outputStack.isEmpty()) {
+            temporaryStack.push(outputStack.pop());
         }
     }
 
