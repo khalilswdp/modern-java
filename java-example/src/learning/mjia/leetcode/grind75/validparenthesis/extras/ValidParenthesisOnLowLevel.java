@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75.validparenthesis;
+package learning.mjia.leetcode.grind75.validparenthesis.extras;
 
 public class ValidParenthesisOnLowLevel {
 
