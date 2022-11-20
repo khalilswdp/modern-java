@@ -1,10 +1,10 @@
-package learning.mjia.leetcode.grind75.twosum;
+package learning.mjia.leetcode.grind75.twosum.extras;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TwoSumNLgN {
+public class TwoSumNInterestingSolution {
     public int[] twoSum(int[] nums, int target) {
         List<ArraySortedMapper> elements = new ArrayList<>();
         for (int i = 0; i < nums.length; i++) {

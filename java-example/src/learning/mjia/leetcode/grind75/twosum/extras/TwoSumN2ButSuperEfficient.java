@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75.twosum;
+package learning.mjia.leetcode.grind75.twosum.extras;
 
 public class TwoSumN2ButSuperEfficient {
     public int[] twoSum(int[] nums, int target) {
