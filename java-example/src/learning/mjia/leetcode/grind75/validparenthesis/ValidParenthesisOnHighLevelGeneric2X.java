@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-public class ValidParenthesisOnHighLevelGeneric2 {
+public class ValidParenthesisOnHighLevelGeneric2X {
 
     public static void main(String[] args) {
         isValid("({[]})");
