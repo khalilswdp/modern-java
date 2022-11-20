@@ -9,8 +9,8 @@ public class BestTimeToBuyAndSellStockIngeniusX {
         int minStock = prices[0];
         int maxProfit = 0;
         for (int price: prices) {
-            minStock = Math.min(minStock, price);
-            maxProfit = Math.max(maxProfit, price - minStock);
+                maxProfit = Math.max(maxProfit, price - minStock);
+                minStock = Math.min(minStock, price);
         }
         return maxProfit;
     }

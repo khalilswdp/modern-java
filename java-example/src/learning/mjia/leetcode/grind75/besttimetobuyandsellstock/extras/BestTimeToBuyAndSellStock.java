@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75.besttimetobuyandsellstock;
+package learning.mjia.leetcode.grind75.besttimetobuyandsellstock.extras;
 
 public class BestTimeToBuyAndSellStock {
     public static void main(String[] args) {
@@ -20,4 +20,15 @@ public class BestTimeToBuyAndSellStock {
         }
         return currentMaxProfit;
     }
+    // This is the same as the ingenious solution when expressed like this:
+    //        int minStock = prices[0];
+    //        int maxProfit = 0;
+    //        for (int price: prices) {
+    //            if (price > minStock) {
+    //                maxProfit = Math.max(maxProfit, price - minStock);
+    //            } else {
+    //                minStock = Math.min(minStock, price);
+    //            }
+    //        }
+    //        return maxProfit;
 }
