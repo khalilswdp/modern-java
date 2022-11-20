@@ -1,4 +1,6 @@
-package learning.mjia.leetcode.grind75.lowestcommonancestorofabinarysearchtree;
+package learning.mjia.leetcode.grind75.lowestcommonancestorofabinarysearchtree.extras;
+
+import learning.mjia.leetcode.grind75.lowestcommonancestorofabinarysearchtree.TreeNode;
 
 public class LowestCommonAncestorOfABinarySearchTreeOLognIterativeShorter {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {

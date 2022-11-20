@@ -1,12 +1,12 @@
 package learning.mjia.leetcode.grind75.lowestcommonancestorofabinarysearchtree;
 
-public class LowestCommonAncestorOfABinarySearchTreeOLognIterative {
+public class LowestCommonAncestorOfABinarySearchTreeOLognIterativeX {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         TreeNode current = root;
         while (current != null) {
-            if (current.left != null && p.val < current.val && q.val < current.val) {
+            if (current.val > p.val && current.val > q.val) {
                 current = current.left;
-            } else if (current.right != null && p.val > current.val && q.val > current.val) {
+            } else if (current.val < p.val && current.val < q.val) {
                 current = current.right;
             } else {
                 return current;
