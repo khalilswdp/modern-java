@@ -1,4 +1,6 @@
-package learning.mjia.leetcode.grind75.mergetwosortedlists;
+package learning.mjia.leetcode.grind75.mergetwosortedlists.extras;
+
+import learning.mjia.leetcode.grind75.mergetwosortedlists.ListNode;
 
 public class MergeTwoSortedListsIterativeWordy {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {

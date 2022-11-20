@@ -1,8 +1,8 @@
 package learning.mjia.leetcode.grind75.mergetwosortedlists;
 
 public class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
     ListNode() {
     }
