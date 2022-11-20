@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75.validanagram;
+package learning.mjia.leetcode.grind75.validanagram.extras;
 
 import java.util.HashMap;
 import java.util.Map;

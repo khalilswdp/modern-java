@@ -2,7 +2,7 @@ package learning.mjia.leetcode.grind75.validanagram;
 
 import java.util.Arrays;
 
-public class ValidAnagramLowLevelV2GoodIdea {
+public class ValidAnagramLowLevelV2GoodIdeaX {
     public static void main(String[] args) {
         System.out.println(isAnagram("anagram", "nagaram"));
     }
