@@ -11,8 +11,6 @@ public class BalancedBinaryTree {
     private static BBT treeHeight(TreeNode root) {
         if (root == null) {
             return new BBT(true, 0);
-        } else if (root.left == null && root.right == null) {
-            return new BBT(true, 1);
         } else {
             BBT bbtLeft = treeHeight(root.left);
             BBT bbtRight = treeHeight(root.right);
