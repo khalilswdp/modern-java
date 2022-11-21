@@ -3,13 +3,13 @@ package learning.mjia.leetcode.grind75.implementqueueusingstack;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class ImplementQueueUsingStackV2 {
+public class ImplementQueueUsingStackV2X {
 
     // Deque is equivalent to Stack, just more modern
     private final Deque<Integer> temporaryStack;
     private final Deque<Integer> outputStack;
 
-    public ImplementQueueUsingStackV2() {
+    public ImplementQueueUsingStackV2X() {
         temporaryStack = new ArrayDeque<>();
         outputStack = new ArrayDeque<>();
     }

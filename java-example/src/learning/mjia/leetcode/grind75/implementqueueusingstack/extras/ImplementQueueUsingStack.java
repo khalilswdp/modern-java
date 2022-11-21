@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75.implementqueueusingstack;
+package learning.mjia.leetcode.grind75.implementqueueusingstack.extras;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
