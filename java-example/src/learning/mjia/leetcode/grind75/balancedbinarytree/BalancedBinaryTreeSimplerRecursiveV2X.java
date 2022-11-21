@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.balancedbinarytree;
 
-public class BalancedBinaryTreeSimplerV2 {
+public class BalancedBinaryTreeSimplerRecursiveV2X {
 
     public static boolean isBalanced(TreeNode root) {
         return height(root) != -1;

@@ -1,4 +1,6 @@
-package learning.mjia.leetcode.grind75.balancedbinarytree;
+package learning.mjia.leetcode.grind75.balancedbinarytree.extras;
+
+import learning.mjia.leetcode.grind75.balancedbinarytree.TreeNode;
 
 public class BalancedBinaryTreeV2 {
     public boolean isBalanced(TreeNode root) {

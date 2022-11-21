@@ -1,6 +1,8 @@
-package learning.mjia.leetcode.grind75.balancedbinarytree;
+package learning.mjia.leetcode.grind75.balancedbinarytree.extras;
 
-public class BalancedBinaryTree {
+import learning.mjia.leetcode.grind75.balancedbinarytree.TreeNode;
+
+public class BalancedBinaryTreeRecursiveWithCustomClass {
     public static void main(String[] args) {
     }
     public static boolean isBalanced(TreeNode root) {
