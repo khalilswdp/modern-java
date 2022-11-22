@@ -13,12 +13,13 @@ public class InsertInterval {
 
     public static int[][] insert(int[][] intervals, int[] newInterval) {
         List<int[]> result = new ArrayList<>();
-        int currentIndex = 0;
+        int length = intervals.length;
+        int count = 0;
         for (int[] interval: intervals) {
             if (newInterval[1] < interval[0]) {
                 result.add(newInterval);
-                for (int i = currentIndex; i < intervals.length; i++) {
-                    result.add(intervals[i]);
+                for (int c = count; c < length; c++) {
+                    result.add(intervals[c]);
                 }
                 return result.toArray(new int[result.size()][2]);
             } else if (newInterval[0] > interval[1]) {
@@ -26,7 +27,7 @@ public class InsertInterval {
             } else {
                 newInterval = new int[] { Math.min(newInterval[0], interval[0]), Math.max(newInterval[1], interval[1]) };
             }
-            currentIndex++;
+            count++;
         }
 
         result.add(newInterval);
