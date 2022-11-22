@@ -24,6 +24,7 @@ public class MatrixBreadthFirstSearchIngenius {
                 if (mat[i][j] == 0) {
                     zeroCoordinates.add(new int[] {i, j});
                 }
+                // or a set containing visited elements
                 result[i][j] = -1;
             }
         }
