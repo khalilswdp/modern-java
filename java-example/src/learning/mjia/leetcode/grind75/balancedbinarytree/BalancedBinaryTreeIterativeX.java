@@ -2,7 +2,7 @@ package learning.mjia.leetcode.grind75.balancedbinarytree;
 
 import java.util.*;
 
-public class BalancedBinaryTreeIterative {
+public class BalancedBinaryTreeIterativeX {
 
     public static boolean isBalanced(TreeNode root) {
         if (root == null) {
@@ -24,6 +24,7 @@ public class BalancedBinaryTreeIterative {
             } else {
                 // We're using a stack, thus we're sure heights contains the values as long as the keys are not null
                 // No need to use : && heights.containsKey(current.left)
+                // Or just use getOrDefault(current.left, 0);
                 // No need to use : && heights.containsKey(current.right)
                 int leftHeight = current.left != null ? heights.get(current.left) : 0;
                 int rightHeight = current.right != null ? heights.get(current.right) : 0;
