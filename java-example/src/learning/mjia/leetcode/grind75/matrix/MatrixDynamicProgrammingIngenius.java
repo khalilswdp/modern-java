@@ -13,7 +13,10 @@ public class MatrixDynamicProgrammingIngenius {
 
         int length = mat.length;
         int width = mat[0].length;
-        int moreThanMaxDistance = length * width;
+        int moreThanMaxDistance = length + width;
+
+        // We can do this without needing result. Just use mat! that's what the fastest solutions are doing
+        // Improve this to reflect those findings
         int[][] result = new int[length][width];
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < width; j++) {
