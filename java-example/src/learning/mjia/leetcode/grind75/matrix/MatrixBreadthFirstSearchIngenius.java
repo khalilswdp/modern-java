@@ -35,6 +35,7 @@ public class MatrixBreadthFirstSearchIngenius {
                 int[] currentCoordinates = zeroCoordinates.pop();
                 int x = currentCoordinates[0];
                 int y = currentCoordinates[1];
+                // or if mat x y == 1 and not visited
                 if (x >= 0 && x < length && y >= 0 && y < width && result[x][y] == -1) {
                     result[x][y] = distance;
 
