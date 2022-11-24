@@ -11,7 +11,7 @@ public class MajorityElementV2 {
                 count--;
             }
 
-            if (result == num || count == 0) {
+            if (count == 0 || result == num) {
                 result = num;
                 count++;
             }
