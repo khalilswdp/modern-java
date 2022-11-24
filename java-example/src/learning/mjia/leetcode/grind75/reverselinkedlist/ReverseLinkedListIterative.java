@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.reverselinkedlist;
 
-public class ReverseLinkedList {
+public class ReverseLinkedListIterative {
     public ListNode reverseList(ListNode head) {
         ListNode current = head, shouldPointTo = null, pointsTo;
         while (current != null) {
