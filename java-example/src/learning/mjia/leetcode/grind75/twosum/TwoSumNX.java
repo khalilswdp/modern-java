@@ -1,16 +1,19 @@
 package learning.mjia.leetcode.grind75.twosum;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TwoSumNX {
     public int[] twoSum(int[] nums, int target) {
-        HashMap<Integer, Integer> leftToIndex = new HashMap<>();
-        for (int index = 0; index < nums.length; index++) {
-            if (leftToIndex.containsKey(nums[index])) {
-                return new int[] {index, leftToIndex.get(nums[index])};
-            } else {
-                leftToIndex.put(target - nums[index], index);
+
+        Map<Integer, Integer> thisNumbersIndex = new HashMap<>();
+        int i = 0;
+        for (int num: nums) {
+            if (thisNumbersIndex.containsKey(num)) {
+                return new int[] {i, thisNumbersIndex.get(num)};
             }
+            thisNumbersIndex.put(target - num, i);
+            i++;
         }
         return null;
     }
