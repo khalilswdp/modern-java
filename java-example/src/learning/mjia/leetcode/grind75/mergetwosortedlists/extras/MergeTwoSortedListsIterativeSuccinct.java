@@ -1,6 +1,8 @@
-package learning.mjia.leetcode.grind75.mergetwosortedlists;
+package learning.mjia.leetcode.grind75.mergetwosortedlists.extras;
 
-public class MergeTwoSortedListsIterativeSuccinctX {
+import learning.mjia.leetcode.grind75.mergetwosortedlists.ListNode;
+
+public class MergeTwoSortedListsIterativeSuccinct {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         ListNode result = new ListNode(), currentIteration = result;
         while (isOneOfTheListsNotNull(list1, list2)) {
