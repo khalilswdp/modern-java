@@ -17,6 +17,13 @@ public class AddBinary {
             carry = sum > 1 ? 1 : 0;
         }
 
+        //              carry = sum / 2;
+        //        }
+        //
+        //        if (carry != 0) {
+        //              result.insert(0, carry);
+        //        }
+
         return result.toString();
     }
 }
