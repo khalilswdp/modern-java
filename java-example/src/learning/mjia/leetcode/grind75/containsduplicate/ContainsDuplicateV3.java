@@ -8,7 +8,7 @@ public class ContainsDuplicateV3 {
     public boolean containsDuplicate(int[] nums) {
 
         Arrays.sort(nums);
-        int previous = Integer.MIN_VALUE;
+        int previous = nums[0] + 1;
         for (int num: nums) {
             if (previous == num) {
                 return true;
