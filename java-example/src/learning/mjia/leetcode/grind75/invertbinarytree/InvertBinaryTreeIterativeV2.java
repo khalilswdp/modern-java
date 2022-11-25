@@ -6,6 +6,8 @@ import java.util.Stack;
 
 public class InvertBinaryTreeIterativeV2 {
     public TreeNode invertTree(TreeNode root) {
+        // Might be easier to understand in a Youtube video or an in person explanation?
+        // But is a bit longer. The other solution is also easy to understand
         Set<TreeNode> visited = new HashSet<>();
         Stack<TreeNode> toVisit = new Stack<>();
         toVisit.add(root);
