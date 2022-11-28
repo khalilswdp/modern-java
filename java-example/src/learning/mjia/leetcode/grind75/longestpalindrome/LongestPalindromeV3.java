@@ -16,6 +16,9 @@ public class LongestPalindromeV3 {
         for (int freq: frequency) {
             result += freq / 2;
             rem = rem | freq % 2;
+            // if (rem == 0) {
+            //      rem = freq % 2;
+            // }
         }
 
         return 2 * result + rem;
