@@ -5,22 +5,20 @@ public class LongestPalindrome {
         longestPalindrome("abccccdd");
     }
     public static int longestPalindrome(String s) {
-        char[] sChar = s.toCharArray();
-        int[] alphabet = new int[128];
-        for (char currentChar: sChar) {
-            alphabet[currentChar]++;
+        int result = 0;
+
+        int[] frequency = new int[256];
+        for (char c: s.toCharArray()) {
+            ++frequency[c];
         }
 
-        boolean isThereAnOdd = false;
-        int longestBoolean = 0;
-        for (int i : alphabet) {
-            longestBoolean += 2 * (i / 2);
-            if (!isThereAnOdd && (i % 2) != 0) {
-                longestBoolean++;
-                isThereAnOdd = true;
+        for (int freq: frequency) {
+            result += 2 * (freq / 2);
+            if (result % 2 == 0 && freq % 2 != 0) {
+                result++;
             }
         }
 
-        return longestBoolean;
+        return result;
     }
 }
