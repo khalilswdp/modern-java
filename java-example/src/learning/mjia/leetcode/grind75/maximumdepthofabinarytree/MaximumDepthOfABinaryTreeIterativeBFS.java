@@ -3,7 +3,7 @@ package learning.mjia.leetcode.grind75.maximumdepthofabinarytree;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class MaximumDepthOfABinaryTreeIterative {
+public class MaximumDepthOfABinaryTreeIterativeBFS {
     public int maxDepth(TreeNode root) {
         if (root == null) {
             return 0;
