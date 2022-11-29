@@ -3,7 +3,7 @@ package learning.mjia.leetcode.grind75.insertinterval;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class InsertIntervalV3 {
+public class InsertIntervalV3X {
     public static void main(String[] args) {
         System.out.println(insert(new int[][] {
                 new int[]{1,3},
