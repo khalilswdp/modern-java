@@ -1,4 +1,6 @@
-package learning.mjia.leetcode.grind75.lowestcommonancestorofabinarysearchtree;
+package learning.mjia.leetcode.grind75.lowestcommonancestorofabinarysearchtree.extras;
+
+import learning.mjia.leetcode.grind75.lowestcommonancestorofabinarysearchtree.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
