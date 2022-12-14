@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75.binarysearch;
+package learning.mjia.leetcode.grind75.binarysearch.extras;
 
 public class BinarySearchRecursiveV2PythonLike {
     public static int search(int[] nums, int target) {
