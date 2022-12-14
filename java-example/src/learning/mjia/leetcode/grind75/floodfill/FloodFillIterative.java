@@ -4,6 +4,7 @@ import java.util.Stack;
 
 public class FloodFillIterative {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        // Check old version if you want to fill all same distance neighbours "simulatenously" before moving to other neighbours
         // Iteratively? In the four directions? Use a stack of points visited starting with the center?
         int originalColor = image[sr][sc];
 
