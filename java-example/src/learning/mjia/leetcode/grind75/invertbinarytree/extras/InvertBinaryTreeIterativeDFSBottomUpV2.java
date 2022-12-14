@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class InvertBinaryTreeIterativeDFSInvertAtReturningUpTheTreeV2 {
+public class InvertBinaryTreeIterativeDFSBottomUpV2 {
     public TreeNode invertTree(TreeNode root) {
         // Might be easier to understand in a YouTube video or an in person explanation?
         // But is a bit longer. The other solution is also easy to understand

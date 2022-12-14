@@ -2,7 +2,7 @@ package learning.mjia.leetcode.grind75.invertbinarytree;
 
 import java.util.Stack;
 
-public class InvertBinaryTreeIterativeDFSBetterX {
+public class InvertBinaryTreeIterativeDFSTopDownX {
     public TreeNode invertTree(TreeNode root) {
         Stack<TreeNode> toVisit = new Stack<>();
         toVisit.push(root);
