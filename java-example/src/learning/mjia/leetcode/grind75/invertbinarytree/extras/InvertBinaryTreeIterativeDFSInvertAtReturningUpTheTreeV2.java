@@ -1,10 +1,12 @@
-package learning.mjia.leetcode.grind75.invertbinarytree;
+package learning.mjia.leetcode.grind75.invertbinarytree.extras;
+
+import learning.mjia.leetcode.grind75.invertbinarytree.TreeNode;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class InvertBinaryTreeIterativeV2 {
+public class InvertBinaryTreeIterativeDFSInvertAtReturningUpTheTreeV2 {
     public TreeNode invertTree(TreeNode root) {
         // Might be easier to understand in a YouTube video or an in person explanation?
         // But is a bit longer. The other solution is also easy to understand

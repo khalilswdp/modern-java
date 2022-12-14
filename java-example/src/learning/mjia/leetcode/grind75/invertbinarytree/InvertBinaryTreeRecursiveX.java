@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.invertbinarytree;
 
-public class InvertBinaryTreeRecursive {
+public class InvertBinaryTreeRecursiveX {
     public TreeNode invertTree(TreeNode root) {
         if (root == null) {
             return null;
