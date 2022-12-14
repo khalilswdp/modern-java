@@ -6,17 +6,16 @@ public class BinarySearchRecursive {
     }
 
     public int search(int[] nums, int target, int start, int end) {
-        if (start == end && nums[start] == target) {
-            return start;
-        } else if (start <= end) {
+        if (start <= end) {
             int mid = start + (end - start) / 2;
-            if (nums[mid] < target) {
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
                 return search(nums, target, mid + 1, end);
             } else {
-                return search(nums, target, start, end - 1);
+                return search(nums, target, start, mid - 1);
             }
-        } else {
-            return -1;
         }
+        return -1;
     }
 }
