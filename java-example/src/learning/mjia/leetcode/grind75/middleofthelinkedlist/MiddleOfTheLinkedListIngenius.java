@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.middleofthelinkedlist;
 
-public class MiddleOfTheLinkedList {
+public class MiddleOfTheLinkedListIngenius {
     public ListNode middleNode(ListNode head) {
         ListNode fastNode = head, slowNode = head;
 

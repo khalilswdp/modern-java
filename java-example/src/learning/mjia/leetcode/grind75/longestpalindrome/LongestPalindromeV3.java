@@ -1,24 +1,26 @@
 package learning.mjia.leetcode.grind75.longestpalindrome;
 
-public class LongestPalindrome {
+public class LongestPalindromeV3 {
     public static void main(String[] args) {
         longestPalindrome("abccccdd");
     }
     public static int longestPalindrome(String s) {
-        int result = 0;
 
         int[] frequency = new int[256];
-        for (char c: s.toCharArray()) {
+        char[] sChar = s.toCharArray();
+        for (char c: sChar) {
             ++frequency[c];
         }
 
+        int result = 0, rem = 0;
         for (int freq: frequency) {
-            result += 2 * (freq / 2);
-            if (result % 2 == 0 && freq % 2 != 0) {
-                result++;
-            }
+            result += freq / 2;
+            rem = rem | freq % 2;
+            // if (rem == 0) {
+            //      rem = freq % 2;
+            // }
         }
 
-        return result;
+        return 2 * result + rem;
     }
 }

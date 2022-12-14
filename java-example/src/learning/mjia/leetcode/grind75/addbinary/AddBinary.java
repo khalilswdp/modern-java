@@ -2,28 +2,21 @@ package learning.mjia.leetcode.grind75.addbinary;
 
 public class AddBinary {
     public String addBinary(String a, String b) {
-        char[] aChars = a.toCharArray(), bChars = b.toCharArray();
-        StringBuilder result = new StringBuilder();
-        int aLength = a.length(), bLength = b.length();
-        int carry = 0;
+        int aLen = a.length() - 1, bLen = b.length() - 1;
+        StringBuilder res = new StringBuilder();
 
-        int i = aLength - 1, j = bLength - 1;
+        char[] aCh = a.toCharArray(), bCh = b.toCharArray();
+        int count = 0;
+        for (; aLen > -1 || bLen > -1 || count != 0; aLen--, bLen--) {
+            int left = aLen > -1 ? aCh[aLen] - '0' : 0;
+            int right = bLen > -1 ? bCh[bLen] - '0' : 0;
 
-        for (; carry != 0 || i >= 0 || j >= 0; i--, j--) {
-            int aChar = i >= 0 ? aChars[i] - '0' : 0;
-            int bChar = j >= 0 ? bChars[j] - '0' : 0;
-            int sum = aChar + bChar + carry;
-            result.insert(0, sum % 2);
-            carry = sum > 1 ? 1 : 0;
+            count = left + right + count;
+
+            res.insert(0, count % 2);
+            count = count / 2;
         }
 
-        //              carry = sum / 2;
-        //        }
-        //
-        //        if (carry != 0) {
-        //              result.insert(0, carry);
-        //        }
-
-        return result.toString();
+        return res.toString();
     }
 }
