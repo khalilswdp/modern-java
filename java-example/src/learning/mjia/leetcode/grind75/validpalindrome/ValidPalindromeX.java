@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.validpalindrome;
 
-public class ValidPalindrome {
+public class ValidPalindromeX {
     public boolean isPalindrome(String s) {
         String stripped = clean(s);
         int length = stripped.length();

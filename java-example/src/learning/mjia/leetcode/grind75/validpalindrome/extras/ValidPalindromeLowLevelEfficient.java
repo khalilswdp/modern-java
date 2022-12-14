@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75.validpalindrome;
+package learning.mjia.leetcode.grind75.validpalindrome.extras;
 
 public class ValidPalindromeLowLevelEfficient {
     public boolean isPalindrome(String s) {

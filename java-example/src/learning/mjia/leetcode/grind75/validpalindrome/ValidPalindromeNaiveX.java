@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.validpalindrome;
 
-public class ValidPalindromeNaive {
+public class ValidPalindromeNaiveX {
     public boolean isPalindrome(String s) {
         String normal = clean(s);
         String reverse = new StringBuilder(normal).reverse().toString();

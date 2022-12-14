@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.validpalindrome;
 
-public class ValidPalindromeLowLevelEfficientV2 {
+public class ValidPalindromeLowLevelEfficientV2X {
     public boolean isPalindrome(String s) {
         int left = 0, right = s.length() - 1;
         char[] chars = s.toCharArray();
@@ -20,7 +20,7 @@ public class ValidPalindromeLowLevelEfficientV2 {
     }
 
     private static boolean isAlphaNumericsEqual(char left, char right) {
-        return right == left || right == Character.toLowerCase(left) || left == Character.toLowerCase(right);
+        return Character.toLowerCase(left) == Character.toLowerCase(right);
     }
 
     private static boolean isAlphaNumeric(char character) {
