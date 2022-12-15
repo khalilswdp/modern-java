@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.climbingstairs;
 
-public class ClimbingStairsV2 {
+public class ClimbingStairsV2X {
     public int climbStairs(int n) {
         if (n == 1) {
             return 1;

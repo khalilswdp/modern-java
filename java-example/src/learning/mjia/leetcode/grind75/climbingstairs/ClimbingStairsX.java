@@ -1,6 +1,6 @@
 package learning.mjia.leetcode.grind75.climbingstairs;
 
-public class ClimbingStairs {
+public class ClimbingStairsX {
     public int climbStairs(int n) {
         int[] dictionary = new int[n + 2];
         dictionary[1] = 1;
