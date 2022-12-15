@@ -2,18 +2,21 @@ package learning.mjia.leetcode.grind75.climbingstairs;
 
 public class ClimbingStairsV2 {
     public int climbStairs(int n) {
-        if (n < 2) {
+        if (n == 1) {
             return 1;
+        } else if (n == 2) {
+            return 2;
         }
-        int left, right;
-        left = 1;
-        right = 1;
-        int result = left + right;
-        for (int i = 1; i < n; i++) {
-            result = left + right;
-            left = right;
-            right = result;
+
+        int first = 1, second = 2, temp;
+
+        while (n > 2) {
+            temp = second;
+            second = first + second;
+            first = temp;
+            n--;
         }
-        return result;
+
+        return second;
     }
 }
