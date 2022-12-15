@@ -1,4 +1,4 @@
-package learning.mjia.leetcode.grind75.ransomnote;
+package learning.mjia.leetcode.grind75.ransomnote.extras;
 
 public class RansomNote {
     public boolean canConstruct(String ransomNote, String magazine) {
